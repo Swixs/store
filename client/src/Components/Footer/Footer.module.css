@@ -1,0 +1,74 @@
+.footerContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 150px);
+  gap: 150px;
+  justify-items: center;
+  margin: 0 440px;
+  padding: 0 20px;
+  padding-top: 60px;
+}
+
+.footerColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.footer {
+  background-color: #000;
+  color: #fff;
+  padding: 20px 0; 
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box; 
+  margin-top: 100px;
+}
+
+.footerColumn h3 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  margin: 10px;
+}
+
+.footerColumn p {
+  margin: 5px 10px;
+  font-size: 0.9rem;
+}
+
+.footerInput {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #fff;
+  background: none;
+  border-radius: 5px;
+  color: #fff;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.footerButton {
+  margin: 5px 0;
+  padding: 10px;
+  background-color: black;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.socialIcons i {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.socialIcons i:hover {
+  color: #007bff; /* Синий оттенок при наведении */
+}

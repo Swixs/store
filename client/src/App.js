@@ -4,6 +4,7 @@ import Home from "./Components/Home/Home";
 import AllProducts from "./Components/AllProducts/AllProducts";
 import Registration from "./Components/SignUp/Registration";
 import Login from "./Components/SignUp/Login";
+import Footer from "./Components/Footer/Footer";
 
 function Contact() {
   return <h1>Contact Page</h1>;
@@ -25,6 +26,7 @@ function App() {
         <Route path="/SignUp" element={<Registration />} />
         <Route path="/login" element={<Login />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
