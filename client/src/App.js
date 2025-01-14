@@ -5,6 +5,7 @@ import AllProducts from "./Components/AllProducts/AllProducts";
 import Registration from "./Components/SignUp/Registration";
 import Login from "./Components/SignUp/Login";
 import Footer from "./Components/Footer/Footer";
+import NotFoundPage from "./Components/NotFoundPage/NotFoundPage";
 
 function Contact() {
   return <h1>Contact Page</h1>;
@@ -25,6 +26,7 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/SignUp" element={<Registration />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </Router>
