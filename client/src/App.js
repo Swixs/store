@@ -6,10 +6,7 @@ import Registration from "./Components/SignUp/Registration";
 import Login from "./Components/SignUp/Login";
 import Footer from "./Components/Footer/Footer";
 import NotFoundPage from "./Components/NotFoundPage/NotFoundPage";
-
-function Contact() {
-  return <h1>Contact Page</h1>;
-}
+import Contact from "./Components/Contact/Contact";
 
 function About() {
   return <h1>About Page</h1>;
