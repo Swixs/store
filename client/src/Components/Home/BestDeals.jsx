@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CircularProgress from "@mui/material/CircularProgress";
+import { addToCart } from "../../Utils/cartUtils";
 
 const BestDeals = () => {
   const [products, setProducts] = useState([]);
@@ -206,6 +207,7 @@ const BestDeals = () => {
                         top: "10px",
                         right: "10px",
                       }}
+                      onClick={() => addToCart(product)}
                     >
                       <FavoriteBorderIcon />
                     </button>

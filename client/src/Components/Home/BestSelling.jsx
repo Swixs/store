@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { addToCart } from "../../Utils/cartUtils";
 
 const BestSelling = () => {
   const [products, setProducts] = useState([]);
@@ -184,6 +185,7 @@ const BestSelling = () => {
                   top: "10px",
                   right: "10px",
                 }}
+                onClick={() => addToCart(product)}
               >
                 <FavoriteBorderIcon />
               </button>

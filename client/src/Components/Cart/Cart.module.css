@@ -1,0 +1,146 @@
+.container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 1; 
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.th {
+  border-bottom: 2px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
+.td {
+  border-bottom: 1px solid #ddd;
+  padding: 45px;
+  text-align: center;
+}
+
+.input {
+  width: 50px;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.buttonPrimary {
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttonSecondary {
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.couponSection {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.summaryHeading {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.couponRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.couponInput {
+  flex: 1;
+  padding: 10px;
+  margin-right: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.summary {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  border-bottom: 1px solid grey;
+}
+
+.lastSummaryRow {
+  border-bottom: none;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.summaryText {
+  font-weight: normal;
+}
+
+.summaryValue {
+  font-weight: normal;
+}
+
+.summaryTotal {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.summaryTotalValue {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-left: 200px;
+  margin-top: 20px;
+}

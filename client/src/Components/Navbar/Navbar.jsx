@@ -1,4 +1,4 @@
-import React from "react";
+import MailIcon from "@mui/icons-material/Mail";
 import { Link, useLocation } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import MailIcon from "@mui/icons-material/Mail";
+import { useNavigate } from "react-router-dom";
 
 const links = [
   { name: "Home", link: "/" },
@@ -45,7 +45,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const location = useLocation();
+  const goToCart = () => {
+    navigate("/cart");
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -108,8 +112,8 @@ export default function Navbar() {
                 <MailIcon style={{ color: "#000" }} />
               </Badge>
             </IconButton>
-            <IconButton size="large" color="inherit">
-              <Badge badgeContent={7} color="error">
+            <IconButton size="large" color="inherit" onClick={goToCart}>
+              <Badge color="error">
                 <ShoppingCartIcon style={{ color: "#000" }} />
               </Badge>
             </IconButton>
