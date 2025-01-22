@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Cart.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [coupon, setCoupon] = useState("");
+  const [total, setTotal] = useState(0);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   useEffect(() => {
-  const storedUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (storedUser) {
-    const userCart =
-      JSON.parse(localStorage.getItem(`cart_${storedUser.login}`)) || [];
-    setCartItems(userCart);
-  } else {
-    const guestCart = JSON.parse(localStorage.getItem("guest_cart")) || [];
-    setCartItems(guestCart);
-  }
-}, []);
+    const storedUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (storedUser) {
+      const userCart =
+        JSON.parse(localStorage.getItem(`cart_${storedUser.login}`)) || [];
+      setCartItems(userCart);
+    } else {
+      const guestCart = JSON.parse(localStorage.getItem("guest_cart")) || [];
+      setCartItems(guestCart);
+    }
+  }, []);
+
+  useEffect(() => {
+    setTotal(calculateSubtotal());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartItems]);
 
   const updateLocalStorage = (updatedCart) => {
     if (currentUser) {
@@ -31,7 +38,9 @@ const Cart = () => {
 
   const handleQuantityChange = (id, quantity) => {
     const updatedCart = cartItems.map((item) =>
-      item.id === id ? { ...item, quantity: parseInt(quantity) || 1 } : item
+      item.id === id
+        ? { ...item, quantity: Math.min(parseInt(quantity) || 2, 10) }
+        : item
     );
     setCartItems(updatedCart);
     updateLocalStorage(updatedCart);
@@ -44,7 +53,13 @@ const Cart = () => {
   };
 
   const handleApplyCoupon = () => {
-    console.log("Coupon applied:", coupon);
+    if (coupon.toLowerCase() === "discount") {
+      const discount = calculateSubtotal() * 0.15;
+      setTotal(calculateSubtotal() - discount);
+      alert("coupon activated! Discount 15%");
+    } else {
+      alert("Coupon incorrect");
+    }
   };
 
   const calculateSubtotal = () =>
@@ -59,12 +74,18 @@ const Cart = () => {
     updateLocalStorage(cartItems);
   };
 
+  const navigate = useNavigate();
+  const goToProduct = (productId) => {
+    navigate(`/Product/${productId}`);
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Shopping Cart</h1>
       <table className={styles.table}>
         <thead>
           <tr>
+            <th className={styles.th}>Image</th>{" "}
             <th className={styles.th}>Product</th>
             <th className={styles.th}>Price</th>
             <th className={styles.th}>Quantity</th>
@@ -75,14 +96,35 @@ const Cart = () => {
         <tbody>
           {cartItems.length === 0 ? (
             <tr>
-              <td colSpan="5" className={styles.emptyMessage}>
+              <td colSpan="6" className={styles.emptyMessage}>
                 Your cart is empty.
               </td>
             </tr>
           ) : (
             cartItems.map((item) => (
               <tr key={item.id}>
-                <td className={styles.td}>{item.title}</td>
+                <td className={styles.td}>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className={styles.productImage}
+                  />
+                </td>
+                <td
+                  className={styles.td}
+                  style={{ cursor: "pointer", transition: "1s" }}
+                  onClick={() => goToProduct(item.id)}
+                  onMouseEnter={(e) => {
+                    e.target.style.color = "white";
+                    e.target.style.backgroundColor = "red";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = "initial";
+                    e.target.style.backgroundColor = "initial";
+                  }}
+                >
+                  {item.title}
+                </td>
                 <td className={styles.td}>${item.price}</td>
                 <td className={styles.td}>
                   <input
@@ -142,7 +184,7 @@ const Cart = () => {
           </div>
           <div className={styles.lastSummaryRow}>
             <h3 className={styles.summaryTotal}>Total:</h3>
-            <h3 className={styles.summaryTotalValue}>${calculateSubtotal()}</h3>
+            <h3 className={styles.summaryTotalValue}>${total.toFixed(2)}</h3>
           </div>
           <div className={styles.buttonContainer}>
             <button className={styles.buttonPrimary}>

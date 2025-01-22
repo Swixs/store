@@ -1,16 +1,50 @@
 export const addToCart = (product) => {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  try {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-  if (currentUser) {
-    const userCart =
-      JSON.parse(localStorage.getItem(`cart_${currentUser.login}`)) || [];
-    userCart.push(product);
-    localStorage.setItem(`cart_${currentUser.login}`, JSON.stringify(userCart));
-    alert("Product added to your cart!");
-  } else {
-    const guestCart = JSON.parse(localStorage.getItem("guest_cart")) || [];
-    guestCart.push(product);
-    localStorage.setItem("guest_cart", JSON.stringify(guestCart));
-    alert("Product added to your cart. Please log in to save your cart.");
+    if (currentUser) {
+      const userCart =
+        JSON.parse(localStorage.getItem(`cart_${currentUser.login}`)) || [];
+
+      const existingProductIndex = userCart.findIndex(
+        (item) => item.id === product.id
+      );
+
+      if (existingProductIndex !== -1) {
+        userCart[existingProductIndex].quantity += 1;
+        alert("Product quantity increased!");
+      } else {
+        const productWithQuantity = { ...product, quantity: 1 };
+        userCart.push(productWithQuantity);
+        alert("Product added to your cart!");
+      }
+
+      localStorage.setItem(
+        `cart_${currentUser.login}`,
+        JSON.stringify(userCart)
+      );
+    } else {
+      const guestCart = JSON.parse(localStorage.getItem("guest_cart")) || [];
+
+      const existingGuestProductIndex = guestCart.findIndex(
+        (item) => item.id === product.id
+      );
+
+      if (existingGuestProductIndex !== -1) {
+        guestCart[existingGuestProductIndex].quantity += 1;
+        alert("Product quantity increased!");
+      } else {
+        const productWithQuantity = { ...product, quantity: 1 };
+        guestCart.push(productWithQuantity);
+        alert("Product added to your cart. Please log in to save your cart.");
+      }
+
+      localStorage.setItem("guest_cart", JSON.stringify(guestCart));
+    }
+  } catch (error) {
+    console.error("Error adding product to cart:", error);
+    alert(
+      "An error occurred while adding the product to your cart. Please try again."
+    );
   }
 };

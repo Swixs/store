@@ -3,7 +3,7 @@
   font-family: Arial, sans-serif;
   max-width: 1200px;
   margin: 0 auto;
-  z-index: 1; 
+  z-index: 1;
 }
 
 .heading {
@@ -26,7 +26,7 @@
 
 .td {
   border-bottom: 1px solid #ddd;
-  padding: 45px;
+  padding: 10px;
   text-align: center;
 }
 
@@ -143,4 +143,34 @@
   justify-content: center;
   margin-left: 200px;
   margin-top: 20px;
+}
+
+.emptyMessage {
+  text-align: center;
+  padding: 100px;
+}
+
+.productImage {
+  width: 50px;
+  height: auto;
+  margin-right: 10px; 
+  border-radius: 4px;
+}
+
+
+.removeButton{
+  background-color: red;
+  border: none;
+  border: 1px solid #fff;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 10px 5px;
+}
+
+.removeButton:hover{
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  transition: 1s;
 }

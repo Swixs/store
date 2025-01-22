@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -47,6 +47,11 @@ const BestDeals = () => {
     if (currentPage > 0) {
       setCurrentPage((prevPage) => prevPage - 1);
     }
+  };
+
+  const navigate = useNavigate();
+  const goToProduct = (productId) => {
+    navigate(`/Product/${productId}`);
   };
 
   return (
@@ -221,6 +226,7 @@ const BestDeals = () => {
                         top: "10px",
                         right: "40px",
                       }}
+                      onClick={() => goToProduct(product.id)}
                     >
                       <VisibilityIcon />
                     </button>

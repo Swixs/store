@@ -3,10 +3,13 @@ import axios from "axios";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { addToCart } from "../../Utils/cartUtils";
+import { useNavigate } from "react-router-dom";
 
 const BestSelling = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -30,6 +33,10 @@ const BestSelling = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  const goToProduct = (productId) => {
+    navigate(`/Product/${productId}`);
+  };
 
   return (
     <div style={{ width: "80%", margin: "0 auto", textAlign: "center" }}>
@@ -199,6 +206,7 @@ const BestSelling = () => {
                   top: "10px",
                   right: "40px",
                 }}
+                onClick={() => goToProduct(product.id)}
               >
                 <VisibilityIcon />
               </button>

@@ -1,0 +1,168 @@
+.productPage {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  margin: auto 300px;
+  margin-top: 100px;
+}
+
+.productImages {
+  display: flex;
+  gap: 20px;
+  width: 700px;
+}
+
+.thumbnailImages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-right: 100px;
+}
+
+.thumbnail {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.mainImage img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.productDetails {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 120px;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.description {
+  color: #666;
+  border-bottom: 1px solid grey;
+  padding-bottom: 20px;
+}
+
+.options {
+  display: flex;
+  gap: 20px;
+}
+
+.colors,
+.sizes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.colorOptions {
+  display: flex;
+  gap: 10px;
+}
+
+.colorBox {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.sizeSelector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.sizeButton {
+  border: 1px solid #ddd;
+  padding: 10px 20px;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sizeButton:hover {
+  background-color: #f5f5f5;
+}
+
+.sizeButton.selected {
+  background-color: red;
+  color: white;
+  border: 1px solid red;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.buyNow {
+  padding: 15px;
+  font-size: 18px;
+  color: white;
+  background-color: red;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 115px;
+}
+
+.deliveryInfo {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 15px;
+  border-radius: 8px;
+}
+
+.deliveryItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.deliveryText {
+  display: flex;
+  flex-direction: column;
+}
+
+.deliveryTitle {
+  font-weight: bold;
+  color: #333;
+}
+
+.deliverySubtext {
+  color: #666;
+  font-size: 14px;
+}
+
+.counterButton:hover{
+  background-color: red;
+  color: white;
+  transition: 1s;
+}
