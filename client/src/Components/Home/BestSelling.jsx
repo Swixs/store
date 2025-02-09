@@ -3,7 +3,7 @@ import axios from "axios";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { addToCart } from "../../Utils/cartUtils";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const BestSelling = () => {
   const [products, setProducts] = useState([]);
@@ -52,21 +52,23 @@ const BestSelling = () => {
         }}
       >
         Best Selling Products
-        <button
-          style={{
-            padding: "5px 10px",
-            border: "none",
-            backgroundColor: "red",
-            color: "white",
-            cursor: "pointer",
-            fontSize: "14px",
-            fontWeight: "bold",
-            borderRadius: "3px",
-            marginRight: 165,
-          }}
-        >
-          View All
-        </button>
+        <Link to="/Products">
+          <button
+            style={{
+              padding: "5px 10px",
+              border: "none",
+              backgroundColor: "red",
+              color: "white",
+              cursor: "pointer",
+              fontSize: "14px",
+              fontWeight: "bold",
+              borderRadius: "3px",
+              marginRight: 165,
+            }}
+          >
+            View All
+          </button>
+        </Link>
       </h2>
       <div
         style={{

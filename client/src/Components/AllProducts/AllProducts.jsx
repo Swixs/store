@@ -9,8 +9,8 @@ const AllProducts = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("all");
   const [loading, setLoading] = useState(true);
+  const [selectedCategories, setSelectedCategories] = useState([]);
 
   const itemsPerPage = 12;
 
@@ -38,16 +38,29 @@ const AllProducts = () => {
   }, []);
 
   const handleFilterChange = (category) => {
-    setSelectedCategory(category);
     setCurrentPage(1);
 
     if (category === "all") {
+      setSelectedCategories([]);
       setFilteredProducts(products);
     } else {
-      const filtered = products.filter(
-        (product) => product.category === category
-      );
-      setFilteredProducts(filtered);
+      setSelectedCategories((prev) => {
+        const isSelected = prev.includes(category);
+        const updatedCategories = isSelected
+          ? prev.filter((cat) => cat !== category)
+          : [...prev, category];
+
+        if (updatedCategories.length === 0) {
+          setFilteredProducts(products);
+        } else {
+          setFilteredProducts(
+            products.filter((product) =>
+              updatedCategories.includes(product.category)
+            )
+          );
+        }
+        return updatedCategories;
+      });
     }
   };
 
@@ -79,14 +92,18 @@ const AllProducts = () => {
           <h3>Category</h3>
           <ul className={styles.filterList}>
             {categories.map((category) => (
-              <li
-                key={category}
-                onClick={() => handleFilterChange(category)}
-                className={`${styles.filterItem} ${
-                  selectedCategory === category ? styles.activeFilter : ""
-                }`}
-              >
-                {category.charAt(0).toUpperCase() + category.slice(1)}
+              <li key={category} className={styles.filterItem}>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={
+                      selectedCategories.includes(category) ||
+                      (selectedCategories.length === 0 && category === "all")
+                    }
+                    onChange={() => handleFilterChange(category)}
+                  />
+                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                </label>
               </li>
             ))}
           </ul>

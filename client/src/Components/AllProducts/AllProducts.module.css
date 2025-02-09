@@ -165,3 +165,11 @@
   color: #555;
   padding: 20px;
 }
+
+.filterItem input[type="checkbox"]:checked + label {
+  color: red; 
+}
+
+.filterItem input[type="checkbox"]:checked {
+  accent-color: red;
+}

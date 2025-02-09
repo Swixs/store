@@ -6,6 +6,7 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [coupon, setCoupon] = useState("");
   const [total, setTotal] = useState(0);
+  const [discountApplied, setDiscountApplied] = useState(false);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   useEffect(() => {
@@ -53,10 +54,13 @@ const Cart = () => {
   };
 
   const handleApplyCoupon = () => {
-    if (coupon.toLowerCase() === "discount") {
+    if (coupon.toLowerCase() === "discount" && !discountApplied) {
       const discount = calculateSubtotal() * 0.15;
       setTotal(calculateSubtotal() - discount);
-      alert("coupon activated! Discount 15%");
+      setDiscountApplied(true);
+      alert("Coupon activated! Discount 15%");
+    } else if (discountApplied) {
+      alert("Coupon already applied");
     } else {
       alert("Coupon incorrect");
     }
@@ -79,13 +83,23 @@ const Cart = () => {
     navigate(`/Product/${productId}`);
   };
 
+  const goToCheckout = () => {
+    // Передаем данные о товарах и общей стоимости в Checkout
+    navigate("/checkout", {
+      state: {
+        cartItems,
+        total,
+      },
+    });
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Shopping Cart</h1>
       <table className={styles.table}>
         <thead>
           <tr>
-            <th className={styles.th}>Image</th>{" "}
+            <th className={styles.th}>Image</th>
             <th className={styles.th}>Product</th>
             <th className={styles.th}>Price</th>
             <th className={styles.th}>Quantity</th>
@@ -187,7 +201,7 @@ const Cart = () => {
             <h3 className={styles.summaryTotalValue}>${total.toFixed(2)}</h3>
           </div>
           <div className={styles.buttonContainer}>
-            <button className={styles.buttonPrimary}>
+            <button className={styles.buttonPrimary} onClick={goToCheckout}>
               Proceed to Checkout
             </button>
           </div>

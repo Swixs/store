@@ -10,6 +10,7 @@ import Contact from "./Components/Contact/Contact";
 import Cart from "./Components/Cart/Cart";
 import { CartProvider } from "./Context/cardContext";
 import Product from "./Components/Product/Product";
+import Checkout from "./Components/Checkout/Checkout";
 
 function About() {
   return <h1>About Page</h1>;
@@ -24,12 +25,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Products" element={<AllProducts />} />
-          <Route path="/Product/:id" element={<Product/>} />
+          <Route path="/Product/:id" element={<Product />} />
           <Route path="/About" element={<About />} />
           <Route path="/SignUp" element={<Registration />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/Checkout" element={<Checkout />} />
         </Routes>
         <Footer />
       </Router>

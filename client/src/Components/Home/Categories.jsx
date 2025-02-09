@@ -5,6 +5,7 @@ import PhoneIcon from "@mui/icons-material/PhoneIphone";
 import ManIcon from "@mui/icons-material/Man";
 import Jewelry from "@mui/icons-material/Diamond";
 import WomanIcon from "@mui/icons-material/Woman";
+import { Link } from "react-router-dom";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -73,45 +74,47 @@ const Categories = () => {
       {loading ? (
         <Typography>Loading categories...</Typography>
       ) : (
-        <Grid container spacing={3}>
-          {categories.map((category, index) => (
-            <Grid item key={index} xs={6} sm={4} md={3}>
-              <Card
-                sx={{
-                  border: "1px solid grey",
-                  width: 200,
-                  padding: "15px 30px;",
-                  textAlign: "center",
-                  transition: "0.3s",
-                  cursor: "pointer",
-                  "&:hover": {
-                    backgroundColor: "#f44336",
-                    color: "white",
-                  },
-                }}
-              >
-                <CardMedia
-                  component="div"
+        <Link to="/Products" style={{ textDecoration: "none" }}>
+          <Grid container spacing={3}>
+            {categories.map((category, index) => (
+              <Grid item key={index} xs={6} sm={4} md={3}>
+                <Card
                   sx={{
-                    height: 50,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    border: "1px solid grey",
+                    width: 200,
+                    padding: "15px 30px;",
+                    textAlign: "center",
                     transition: "0.3s",
+                    cursor: "pointer",
                     "&:hover": {
+                      backgroundColor: "#f44336",
                       color: "white",
                     },
                   }}
                 >
-                  {getCategoryIcon(category)}
-                </CardMedia>
-                <CardContent>
-                  <Typography>{category}</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+                  <CardMedia
+                    component="div"
+                    sx={{
+                      height: 50,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      transition: "0.3s",
+                      "&:hover": {
+                        color: "white",
+                      },
+                    }}
+                  >
+                    {getCategoryIcon(category)}
+                  </CardMedia>
+                  <CardContent>
+                    <Typography>{category}</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Link>
       )}
     </div>
   );
