@@ -1,0 +1,94 @@
+.userProfileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  height: 60vh;
+}
+
+.profileDetails {
+  text-align: center;
+}
+
+.profileTabBtn {
+  margin-top: 10px;
+  font-size: 16px;
+  padding: 5px 10px;
+  background-color: transparent;
+  color: red;
+  cursor: pointer;
+  border: none;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 100%;
+  align-items: center;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  width: 250px;
+}
+
+.inputField {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 250px;
+}
+
+.editBtn {
+  margin-top: 20px;
+  transition: 1s;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.redBtn {
+  color: red;
+  margin-top: 20px;
+}
+
+.editBtn:hover {
+  color: red;
+}
+
+.redBtn:hover {
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.activeTab {
+  font-weight: bold;
+}
+
+.messagesContainer {
+  text-align: center;
+}
+
+.messagesList {
+  margin-top: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.message {
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}

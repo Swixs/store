@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import LoginImg from "../../Image/imageLogin/Login.png";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -17,6 +19,8 @@ const Login = () => {
     if (user) {
       setMessage("Login successful!");
       localStorage.setItem("currentUser", JSON.stringify(user));
+      navigate("/");
+      window.location.reload();
     } else {
       setMessage("Invalid login or password.");
     }

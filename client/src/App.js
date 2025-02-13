@@ -11,31 +11,33 @@ import Cart from "./Components/Cart/Cart";
 import { CartProvider } from "./Context/cardContext";
 import Product from "./Components/Product/Product";
 import Checkout from "./Components/Checkout/Checkout";
-
-function About() {
-  return <h1>About Page</h1>;
-}
+import About from "./Components/About/About";
+import Profile from "./Components/Profile/Profile";
+import { AuthProvider } from "./Context/authContext";
 
 function App() {
   return (
-    <CartProvider>
-      <Router>
-        <Navbar style={{ borderBottom: "1px solid grey" }} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Contact" element={<Contact />} />
-          <Route path="/Products" element={<AllProducts />} />
-          <Route path="/Product/:id" element={<Product />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/SignUp" element={<Registration />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<NotFoundPage />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/Checkout" element={<Checkout />} />
-        </Routes>
-        <Footer />
-      </Router>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <Router>
+          <Navbar style={{ borderBottom: "1px solid grey" }} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Contact" element={<Contact />} />
+            <Route path="/Products" element={<AllProducts />} />
+            <Route path="/Product/:id" element={<Product />} />
+            <Route path="/About" element={<About />} />
+            <Route path="/SignUp" element={<Registration />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<NotFoundPage />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/Checkout" element={<Checkout />} />
+            <Route path="/Profile" element={<Profile />} />
+          </Routes>
+          <Footer />
+        </Router>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 

@@ -84,7 +84,6 @@ const Cart = () => {
   };
 
   const goToCheckout = () => {
-    // Передаем данные о товарах и общей стоимости в Checkout
     navigate("/checkout", {
       state: {
         cartItems,
