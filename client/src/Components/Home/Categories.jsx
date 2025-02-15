@@ -5,11 +5,12 @@ import PhoneIcon from "@mui/icons-material/PhoneIphone";
 import ManIcon from "@mui/icons-material/Man";
 import Jewelry from "@mui/icons-material/Diamond";
 import WomanIcon from "@mui/icons-material/Woman";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -23,7 +24,7 @@ const Categories = () => {
         );
         setCategories(capitalizedCategories);
       } catch (error) {
-        console.error("Ошибка при загрузке категорий:", error);
+        console.error("Error loading categories:", error);
       } finally {
         setLoading(false);
       }
@@ -45,6 +46,10 @@ const Categories = () => {
       default:
         return null;
     }
+  };
+
+  const handleCategoryClick = (category) => {
+    navigate(`/Products?category=${category.toLowerCase()}`);
   };
 
   return (
@@ -74,47 +79,46 @@ const Categories = () => {
       {loading ? (
         <Typography>Loading categories...</Typography>
       ) : (
-        <Link to="/Products" style={{ textDecoration: "none" }}>
-          <Grid container spacing={3}>
-            {categories.map((category, index) => (
-              <Grid item key={index} xs={6} sm={4} md={3}>
-                <Card
+        <Grid container spacing={3}>
+          {categories.map((category, index) => (
+            <Grid item key={index} xs={6} sm={4} md={3}>
+              <Card
+                sx={{
+                  border: "1px solid grey",
+                  width: 200,
+                  padding: "15px 30px;",
+                  textAlign: "center",
+                  transition: "0.3s",
+                  cursor: "pointer",
+                  "&:hover": {
+                    backgroundColor: "#f44336",
+                    color: "white",
+                  },
+                }}
+                onClick={() => handleCategoryClick(category)}
+              >
+                <CardMedia
+                  component="div"
                   sx={{
-                    border: "1px solid grey",
-                    width: 200,
-                    padding: "15px 30px;",
-                    textAlign: "center",
+                    height: 50,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                     transition: "0.3s",
-                    cursor: "pointer",
                     "&:hover": {
-                      backgroundColor: "#f44336",
                       color: "white",
                     },
                   }}
                 >
-                  <CardMedia
-                    component="div"
-                    sx={{
-                      height: 50,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      transition: "0.3s",
-                      "&:hover": {
-                        color: "white",
-                      },
-                    }}
-                  >
-                    {getCategoryIcon(category)}
-                  </CardMedia>
-                  <CardContent>
-                    <Typography>{category}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Link>
+                  {getCategoryIcon(category)}
+                </CardMedia>
+                <CardContent>
+                  <Typography>{category}</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
       )}
     </div>
   );

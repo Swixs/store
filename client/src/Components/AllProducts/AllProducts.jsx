@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./AllProducts.module.css";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { addToCart } from "../../Utils/cartUtils";
-import { useNavigate } from "react-router-dom";
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
@@ -10,9 +10,10 @@ const AllProducts = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategories, setSelectedCategories] = useState([]);
 
   const itemsPerPage = 12;
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -28,7 +29,7 @@ const AllProducts = () => {
         ];
         setCategories(uniqueCategories);
       } catch (error) {
-        console.error("Error attaching data:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
@@ -37,45 +38,38 @@ const AllProducts = () => {
     fetchProducts();
   }, []);
 
-  const handleFilterChange = (category) => {
-    setCurrentPage(1);
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const category = queryParams.get("category");
 
-    if (category === "all") {
-      setSelectedCategories([]);
-      setFilteredProducts(products);
+    if (category && category !== "all") {
+      setFilteredProducts(
+        products.filter(
+          (product) => product.category.toLowerCase() === category
+        )
+      );
     } else {
-      setSelectedCategories((prev) => {
-        const isSelected = prev.includes(category);
-        const updatedCategories = isSelected
-          ? prev.filter((cat) => cat !== category)
-          : [...prev, category];
-
-        if (updatedCategories.length === 0) {
-          setFilteredProducts(products);
-        } else {
-          setFilteredProducts(
-            products.filter((product) =>
-              updatedCategories.includes(product.category)
-            )
-          );
-        }
-        return updatedCategories;
-      });
+      setFilteredProducts(products);
     }
-  };
+  }, [location, products]);
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-
   const currentProducts = filteredProducts.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  const handlePageChange = (page) => {
+  const handlePageChange = useCallback((page) => {
     setCurrentPage(page);
-  };
+  }, []);
 
-  const navigate = useNavigate();
+  const handleCategoryChange = useCallback(
+    (category) => {
+      navigate(`?category=${category}`); 
+    },
+    [navigate]
+  );
+
   const goToProduct = (productId) => {
     navigate(`/Product/${productId}`);
   };
@@ -93,15 +87,18 @@ const AllProducts = () => {
           <ul className={styles.filterList}>
             {categories.map((category) => (
               <li key={category} className={styles.filterItem}>
-                <label>
+                <label className="custom-radio">
                   <input
-                    type="checkbox"
+                    type="radio"
+                    name="category"
+                    value={category}
+                    onChange={() => handleCategoryChange(category)}
                     checked={
-                      selectedCategories.includes(category) ||
-                      (selectedCategories.length === 0 && category === "all")
+                      new URLSearchParams(location.search).get("category") ===
+                      category
                     }
-                    onChange={() => handleFilterChange(category)}
                   />
+                  <span className="custom-checkmark"></span>
                   {category.charAt(0).toUpperCase() + category.slice(1)}
                 </label>
               </li>
@@ -109,6 +106,7 @@ const AllProducts = () => {
           </ul>
         </div>
       </aside>
+
       <main className={styles.productsSection}>
         <h1 className={styles.title}>All Products</h1>
         <div className={styles.productsGrid}>
@@ -136,6 +134,7 @@ const AllProducts = () => {
             </div>
           ))}
         </div>
+
         <div className={styles.pagination}>
           {Array.from({ length: totalPages }, (_, i) => (
             <button
