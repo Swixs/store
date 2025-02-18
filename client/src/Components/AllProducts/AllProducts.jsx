@@ -3,8 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./AllProducts.module.css";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { addToCart } from "../../Utils/cartUtils";
+import { useAlerts } from "../../Context/alertContext";
 
 const AllProducts = () => {
+  const { addAlert } = useAlerts();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -65,7 +67,7 @@ const AllProducts = () => {
 
   const handleCategoryChange = useCallback(
     (category) => {
-      navigate(`?category=${category}`); 
+      navigate(`?category=${category}`);
     },
     [navigate]
   );
@@ -127,7 +129,7 @@ const AllProducts = () => {
               <p className={styles.productPrice}>${product.price}</p>
               <button
                 className={styles.addButton}
-                onClick={() => addToCart(product)}
+                onClick={() => addToCart(product, addAlert)}
               >
                 Add to Cart
               </button>

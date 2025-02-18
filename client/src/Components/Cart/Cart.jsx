@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Cart.module.css";
 import { useNavigate } from "react-router-dom";
+import { useAlerts } from "../../Context/alertContext";
 
 const Cart = () => {
+  const { addAlert } = useAlerts();
   const [cartItems, setCartItems] = useState([]);
   const [coupon, setCoupon] = useState("");
   const [total, setTotal] = useState(0);
@@ -59,10 +61,11 @@ const Cart = () => {
       setTotal(calculateSubtotal() - discount);
       setDiscountApplied(true);
       alert("Coupon activated! Discount 15%");
+      addAlert("Coupon activated! Discount 15%");
     } else if (discountApplied) {
-      alert("Coupon already applied");
+      addAlert("Coupon already applied");
     } else {
-      alert("Coupon incorrect");
+      addAlert("Coupon incorrect");
     }
   };
 

@@ -16,7 +16,6 @@ export const addToCart = (product) => {
       } else {
         const productWithQuantity = { ...product, quantity: 1 };
         userCart.push(productWithQuantity);
-        alert("Product added to your cart!");
       }
 
       localStorage.setItem(
@@ -36,7 +35,6 @@ export const addToCart = (product) => {
       } else {
         const productWithQuantity = { ...product, quantity: 1 };
         guestCart.push(productWithQuantity);
-        alert("Product added to your cart. Please log in to save your cart.");
       }
 
       localStorage.setItem("guest_cart", JSON.stringify(guestCart));

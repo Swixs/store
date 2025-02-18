@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Footer.module.css";
+import NavigationButton from "./NavigationButton";
 
 const Footer = () => {
   return (
@@ -25,14 +26,23 @@ const Footer = () => {
 
         <div className={styles.footerColumn}>
           <h3>Account</h3>
-          <button className={styles.footerButton}>My Account</button>
-          <button className={styles.footerButton}>Login / Register</button>
-          <button className={styles.footerButton}>Cart</button>
-          <button className={styles.footerButton}>Wishlist</button>
-          <button className={styles.footerButton}>Shop</button>
+          <NavigationButton to="/profile" className={styles.footerButton}>
+            My Account
+          </NavigationButton>
+          <NavigationButton to="/login" className={styles.footerButton}>
+            Login / Register
+          </NavigationButton>
+          <NavigationButton to="/cart" className={styles.footerButton}>
+            Cart
+          </NavigationButton>
+          <NavigationButton to="/wishlist" className={styles.footerButton}>
+            Wishlist
+          </NavigationButton>
+          <NavigationButton to="/Products" className={styles.footerButton}>
+            Shop
+          </NavigationButton>
         </div>
 
-        {/* Колонка 4 */}
         <div className={styles.footerColumn}>
           <h3>Quick Links</h3>
           <button className={styles.footerButton}>Privacy Policy</button>

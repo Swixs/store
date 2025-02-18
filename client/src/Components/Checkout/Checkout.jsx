@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./Checkout.module.css";
 import { FaExclamationTriangle } from "react-icons/fa";
+import { useAlerts } from "../../Context/alertContext";
 
 const Checkout = () => {
+  const { addAlert } = useAlerts();
   const location = useLocation();
   const { cartItems, total } = location.state || { cartItems: [], total: 0 };
 
@@ -21,7 +23,7 @@ const Checkout = () => {
   const [errors, setErrors] = useState({});
 
   const handleApplyCoupon = () => {
-    alert("Coupon code applied!");
+    addAlert("Coupon code applied!");
   };
 
   useEffect(() => {
@@ -59,6 +61,7 @@ const Checkout = () => {
       return;
     }
 
+    addAlert("Order placed successfully!");
     alert("Order placed successfully!");
   };
 

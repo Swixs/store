@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
+import { useAlerts } from "../../Context/alertContext";
 
 const links = [
   { name: "Home", link: "/" },
@@ -41,6 +42,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Navbar() {
+  const { alerts } = useAlerts();
   const navigate = useNavigate();
   const location = useLocation();
   const [currentUser, setCurrentUser] = useState(null);
@@ -55,6 +57,8 @@ export default function Navbar() {
     setCurrentUser(null);
     navigate("/");
   };
+  const unreadCount = alerts.filter((alert) => !alert.read).length;
+  const numberMessages = unreadCount > 9 ? "9+" : unreadCount;
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -98,11 +102,13 @@ export default function Navbar() {
             />
           </Search>
           <Box sx={{ display: "flex", alignItems: "center", ml: "auto" }}>
-            <IconButton size="large" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon sx={{ color: "#000" }} />
-              </Badge>
-            </IconButton>
+            <Link to="/wishlist">
+              <IconButton size="large" color="inherit">
+                <Badge badgeContent={numberMessages} color="error">
+                  <MailIcon sx={{ color: "#000" }} />
+                </Badge>
+              </IconButton>
+            </Link>
             <IconButton
               size="large"
               color="inherit"

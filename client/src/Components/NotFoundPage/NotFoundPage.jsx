@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./NotFoundPage.module.css"; // Подключаем модуль CSS
+import styles from "./NotFoundPage.module.css";
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
 
   const goHome = () => {
-    navigate("/"); // Перенаправление на главную страницу
+    navigate("/"); 
   };
 
   return (

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import styles from "./Profile.module.css";
 import SettingsIcon from "@mui/icons-material/Settings";
 import EditModal from "./EditModal";
+import { useAlerts } from "../../Context/alertContext";
 
 const UserProfile = () => {
+  const { addAlert } = useAlerts();
   const [userData, setUserData] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("");
@@ -37,6 +39,7 @@ const UserProfile = () => {
 
     localStorage.setItem("users", JSON.stringify(updatedUsers));
     localStorage.setItem("currentUser", JSON.stringify(updatedUserData));
+    addAlert("User data was update!! " + new Date().toLocaleString());
 
     setUserData(updatedUserData);
     handleClose();
@@ -53,14 +56,6 @@ const UserProfile = () => {
           onClick={() => setActiveTab("profile")}
         >
           Profile
-        </button>
-        <button
-          className={`${styles.profileTabBtn} ${
-            activeTab === "notifications" ? styles.activeTab : ""
-          }`}
-          onClick={() => setActiveTab("notifications")}
-        >
-          Notifications
         </button>
       </div>
 
@@ -118,13 +113,6 @@ const UserProfile = () => {
                 <SettingsIcon />
               </button>
             </div>
-          </div>
-        )}
-
-        {activeTab === "notifications" && (
-          <div className={styles.messagesContainer}>
-            <h3>Your notifications</h3>
-            <p>No new notifications</p>
           </div>
         )}
       </div>

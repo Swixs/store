@@ -14,30 +14,35 @@ import Checkout from "./Components/Checkout/Checkout";
 import About from "./Components/About/About";
 import Profile from "./Components/Profile/Profile";
 import { AuthProvider } from "./Context/authContext";
+import Wishlist from "./Components/Wishlist/Wishlist";
+import { AlertsProvider } from "./Context/alertContext";
 
 function App() {
   return (
-    <AuthProvider>
-      <CartProvider>
-        <Router>
-          <Navbar style={{ borderBottom: "1px solid grey" }} />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/Contact" element={<Contact />} />
-            <Route path="/Products" element={<AllProducts />} />
-            <Route path="/Product/:id" element={<Product />} />
-            <Route path="/About" element={<About />} />
-            <Route path="/SignUp" element={<Registration />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<NotFoundPage />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/Checkout" element={<Checkout />} />
-            <Route path="/Profile" element={<Profile />} />
-          </Routes>
-          <Footer />
-        </Router>
-      </CartProvider>
-    </AuthProvider>
+    <AlertsProvider>
+      <AuthProvider>
+        <CartProvider>
+          <Router>
+            <Navbar style={{ borderBottom: "1px solid grey" }} />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/Contact" element={<Contact />} />
+              <Route path="/Products" element={<AllProducts />} />
+              <Route path="/Product/:id" element={<Product />} />
+              <Route path="/About" element={<About />} />
+              <Route path="/SignUp" element={<Registration />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="*" element={<NotFoundPage />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/Checkout" element={<Checkout />} />
+              <Route path="/Profile" element={<Profile />} />
+              <Route path="/Wishlist" element={<Wishlist />} />
+            </Routes>
+            <Footer />
+          </Router>
+        </CartProvider>
+      </AuthProvider>
+    </AlertsProvider>
   );
 }
 
