@@ -1,15 +1,15 @@
 import React from "react";
-import styles from "./Footer.module.css";
 import NavigationButton from "./NavigationButton";
+import styles from "./Footer.module.css";
 
 const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContainer}>
         <div className={styles.footerColumn}>
-          <h3>Exclusive</h3>
-          <p>Subscribe</p>
-          <p>Get 10% off your first order</p>
+          <h3 className={styles.footerTitle}>Exclusive</h3>
+          <p className={styles.footerText}>Subscribe</p>
+          <p className={styles.footerText}>Get 10% off your first order</p>
           <input
             type="email"
             placeholder="Enter your email"
@@ -18,14 +18,14 @@ const Footer = () => {
         </div>
 
         <div className={styles.footerColumn}>
-          <h3>Support</h3>
-          <p>111 Bijoy sarani, Dhaka, DH 1515</p>
-          <p>exclusive@gmail.com</p>
-          <p>+88015-88888-9999</p>
+          <h3 className={styles.footerTitle}>Support</h3>
+          <p className={styles.footerText}>111 Bijoy sarani, Dhaka, DH 1515</p>
+          <p className={styles.footerText}>exclusive@gmail.com</p>
+          <p className={styles.footerText}>+88015-88888-9999</p>
         </div>
 
         <div className={styles.footerColumn}>
-          <h3>Account</h3>
+          <h3 className={styles.footerTitle}>Account</h3>
           <NavigationButton to="/profile" className={styles.footerButton}>
             My Account
           </NavigationButton>
@@ -44,7 +44,7 @@ const Footer = () => {
         </div>
 
         <div className={styles.footerColumn}>
-          <h3>Quick Links</h3>
+          <h3 className={styles.footerTitle}>Quick Links</h3>
           <button className={styles.footerButton}>Privacy Policy</button>
           <button className={styles.footerButton}>Terms Of Use</button>
           <button className={styles.footerButton}>FAQ</button>

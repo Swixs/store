@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Grid, Typography, Card, CardContent, CardMedia } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+  CardMedia,
+  Box,
+} from "@mui/material";
 import PhoneIcon from "@mui/icons-material/PhoneIphone";
 import ManIcon from "@mui/icons-material/Man";
 import Jewelry from "@mui/icons-material/Diamond";
@@ -57,7 +64,7 @@ const Categories = () => {
       style={{
         margin: "auto",
         maxWidth: 1200,
-        padding: "0 20px",
+        padding: "0 90px",
         paddingBottom: 100,
         borderTop: "1px solid grey",
         marginTop: 50,
@@ -65,28 +72,55 @@ const Categories = () => {
         marginBottom: 50,
       }}
     >
-      <h2
-        variant="h2"
-        style={{
-          textAlign: "left",
-          marginBottom: 40,
-          marginTop: 60,
-          fontSize: 50,
-        }}
+      <Box
+        display="flex"
+        justifyContent={{ xs: "center", sm: "flex-start" }}
+        my={2.5}
       >
-        Browse By Category
-      </h2>
+        <Typography variant="h5" fontWeight="bold">
+          <Typography
+            style={{ fontSize: "24px" }}
+            component="span"
+            sx={{ display: { xs: "none", sm: "inline" } }}
+          >
+            Browse by category
+          </Typography>
+          <Typography
+            style={{ fontSize: "24px" }}
+            component="span"
+            sx={{ display: { xs: "inline", sm: "none" } }}
+          >
+            Category
+          </Typography>
+        </Typography>
+      </Box>
+
       {loading ? (
         <Typography>Loading categories...</Typography>
       ) : (
-        <Grid container spacing={3}>
+        <Grid
+          container
+          spacing={3}
+          justifyContent={{ xs: "center", sm: "flex-start" }}
+        >
           {categories.map((category, index) => (
-            <Grid item key={index} xs={6} sm={4} md={3}>
+            <Grid
+              item
+              key={index}
+              xs={12}
+              sm={6}
+              md={4}
+              lg={3}
+              sx={{
+                display: "flex",
+                justifyContent: { xs: "center", sm: "flex-start" },
+              }}
+            >
               <Card
                 sx={{
                   border: "1px solid grey",
-                  width: 200,
-                  padding: "15px 30px;",
+                  width: { xs: "60%", sm: "60%", md: "40%", lg: "200px" },
+                  padding: { xs: "10px 20px", sm: "15px 30px" },
                   textAlign: "center",
                   transition: "0.3s",
                   cursor: "pointer",
@@ -100,7 +134,7 @@ const Categories = () => {
                 <CardMedia
                   component="div"
                   sx={{
-                    height: 50,
+                    height: { xs: 40, sm: 50 },
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",

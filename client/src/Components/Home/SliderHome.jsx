@@ -1,10 +1,34 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 import firstImg from "../../Image/ImageSlider/firstGucci.png";
 import secondImg from "../../Image/ImageSlider/secondIphone.png";
 import thirdImg from "../../Image/ImageSlider/thirdPs5.png";
 
+const SliderContainer = styled.div`
+  position: relative;
+  width: 70%;
+  height: 300px;
+  border: 3px solid white;
+  overflow: hidden;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  background-color: black;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
 const Slider = () => {
+  const navigate = useNavigate();
+
+  const goToProducts = () => {
+    navigate("/Products");
+  };
+
   const slides = [
     {
       id: 1,
@@ -46,20 +70,9 @@ const Slider = () => {
   }, [isHovered, slides.length]);
 
   return (
-    <div
+    <SliderContainer
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{
-        position: "relative",
-        width: "70%",
-        height: "300px",
-        border: "3px solid white",
-        overflow: "hidden",
-        margin: "0 auto",
-        display: "flex",
-        alignItems: "center",
-        backgroundColor: "black",
-      }}
     >
       <div
         style={{
@@ -89,6 +102,7 @@ const Slider = () => {
                 {slide.description}
               </p>
               <button
+                onClick={() => goToProducts()}
                 style={{
                   paddingTop: "10px",
                   background: "none",
@@ -121,7 +135,7 @@ const Slider = () => {
           </div>
         ))}
       </div>
-    </div>
+    </SliderContainer>
   );
 };
 

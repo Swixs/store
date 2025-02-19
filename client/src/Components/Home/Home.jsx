@@ -9,13 +9,10 @@ const Home = () => {
     <div>
       <div
         style={{
-          display: "flex",
           gap: "20px",
-          padding: "20px 100px",
-          marginLeft: "120px",
         }}
       >
-        <div style={{ flex: "2", marginTop: 30, width: 700 }}>
+        <div style={{ flex: "2", marginTop: 30 }}>
           <Slider />
         </div>
       </div>

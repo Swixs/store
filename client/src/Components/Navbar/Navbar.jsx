@@ -1,16 +1,19 @@
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { styled, alpha } from "@mui/material/styles";
+import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
-import { useEffect, useState } from "react";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
 import { useAlerts } from "../../Context/alertContext";
 
 const links = [
@@ -19,35 +22,14 @@ const links = [
   { name: "About", link: "/about" },
 ];
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha("#000", 0.15),
-  "&:hover": {
-    backgroundColor: alpha("#000", 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: theme.spacing(3),
-  width: "auto",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "#000",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1.5, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(2)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-  },
-}));
-
 export default function Navbar() {
   const { alerts } = useAlerts();
   const navigate = useNavigate();
   const location = useLocation();
   const [currentUser, setCurrentUser] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  useEffect(() => {
+  useState(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     setCurrentUser(user);
   }, [location]);
@@ -57,6 +39,7 @@ export default function Navbar() {
     setCurrentUser(null);
     navigate("/");
   };
+
   const unreadCount = alerts.filter((alert) => !alert.read).length;
   const numberMessages = unreadCount > 9 ? "9+" : unreadCount;
 
@@ -64,24 +47,55 @@ export default function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="static"
-        sx={{ backgroundColor: "white", padding: "10px 180px" }}
+        sx={{
+          backgroundColor: "white",
+          width: "100%",
+          px: { xs: 2.5, sm: 5, md: 10, lg: 20 },
+        }}
       >
-        <Toolbar>
+        <Toolbar
+          sx={{
+            width: "100%",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+          }}
+        >
+          <IconButton
+            size="large"
+            edge="start"
+            aria-label="menu"
+            sx={{ display: { xs: "block", md: "none" } }}
+            onClick={() => setDrawerOpen(true)}
+          >
+            <MenuIcon sx={{ color: "#000", fontSize: "30px" }} />
+          </IconButton>
+
           <Typography
             variant="h6"
             component={Link}
             to="/"
-            sx={{ textDecoration: "none", color: "black", fontWeight: "bold" }}
+            sx={{
+              textDecoration: "none",
+              color: "black",
+              fontWeight: "bold",
+              fontSize: { xs: "18px", sm: "22px", md: "24px" },
+            }}
           >
             Exclusive
           </Typography>
-          <Box sx={{ flexGrow: 1, display: "flex", gap: 2, ml: 10 }}>
+          <Box
+            sx={{
+              display: { xs: "none", sm: "flex" },
+              gap: 2,
+              ml: { sm: 2, md: 10 },
+            }}
+          >
             {links.map((item) => (
               <Link
                 key={item.name}
                 to={item.link}
                 style={{
-                  fontSize: "20px",
+                  fontSize: "18px",
                   textDecoration: "none",
                   color: location.pathname === item.link ? "black" : "#000",
                   fontWeight: 200,
@@ -95,41 +109,52 @@ export default function Navbar() {
               </Link>
             ))}
           </Box>
-          <Search>
-            <StyledInputBase
-              placeholder="What are you looking for?"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-          <Box sx={{ display: "flex", alignItems: "center", ml: "auto" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 0,
+            }}
+          >
             <Link to="/wishlist">
-              <IconButton size="large" color="inherit">
+              <IconButton size="large">
                 <Badge badgeContent={numberMessages} color="error">
-                  <MailIcon sx={{ color: "#000" }} />
+                  <MailIcon
+                    sx={{
+                      color: "#000",
+                      fontSize: { xs: "20px", sm: "25px", md: "30px" },
+                    }}
+                  />
                 </Badge>
               </IconButton>
             </Link>
-            <IconButton
-              size="large"
-              color="inherit"
-              onClick={() => navigate("/cart")}
-            >
-              <Badge color="error">
-                <ShoppingCartIcon sx={{ color: "#000" }} />
-              </Badge>
+            <IconButton size="large" onClick={() => navigate("/cart")}>
+              <ShoppingCartIcon
+                sx={{
+                  color: "#000",
+                  fontSize: { xs: "20px", sm: "25px", md: "30px" },
+                }}
+              />
             </IconButton>
             {currentUser ? (
               <>
-                <IconButton
-                  size="large"
-                  color="inherit"
-                  onClick={() => navigate("/Profile")}
-                >
-                  <AccountCircleIcon sx={{ color: "#000" }} />
+                <IconButton size="large" onClick={() => navigate("/profile")}>
+                  <AccountCircleIcon
+                    sx={{
+                      color: "#000",
+                      fontSize: { xs: "20px", sm: "25px", md: "30px" },
+                    }}
+                  />
                 </IconButton>
                 <button
                   onClick={handleLogout}
-                  style={{ color: "black", marginLeft: "20px" }}
+                  style={{
+                    color: "black",
+                    marginLeft: "10px",
+                    fontSize: "14px",
+                    padding: "5px 10px",
+                    display: { xs: "none", md: "block" },
+                  }}
                 >
                   Logout
                 </button>
@@ -138,11 +163,11 @@ export default function Navbar() {
               <Link
                 to="/login"
                 style={{
-                  fontSize: "20px",
+                  fontSize: "18px",
                   textDecoration: "none",
                   color: "#000",
                   fontWeight: 200,
-                  marginLeft: 20,
+                  marginLeft: 10,
                 }}
               >
                 Log in
@@ -151,6 +176,24 @@ export default function Navbar() {
           </Box>
         </Toolbar>
       </AppBar>
+
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      >
+        <List>
+          {links.map((item) => (
+            <ListItem
+              button
+              key={item.name}
+              onClick={() => navigate(item.link)}
+            >
+              <ListItemText primary={item.name} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
     </Box>
   );
 }
