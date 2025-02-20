@@ -92,3 +92,38 @@
   border-radius: 5px;
   border: 1px solid #ccc;
 }
+
+@media (max-width: 768px) {
+  .userProfileContainer {
+    height: 45vh;
+  }
+  .sidebar {
+    align-items: start;
+  }
+
+  .inputModal {
+    width: 60% !important;
+  }
+
+  .inputRow{
+    width: 280px;
+  }
+}
+
+@media (max-width: 1181px) {
+
+  .userProfileContainer {
+    height: 45vh;
+  }
+  .sidebar {
+    align-items: center;
+  }
+
+  .inputModal {
+    width: 90% !important;
+  }
+
+  .inputRow{
+    margin: 0;
+  }
+}

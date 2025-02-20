@@ -1,6 +1,6 @@
 .wishlist {
   margin: 100px 300px;
-  height: 60vh;
+  min-height: 60vh;
 }
 
 .message {
@@ -9,4 +9,36 @@
   border-radius: 10px;
   margin-top: 10px;
   padding: 20px 50px;
+}
+
+@media (max-width: 768px) {
+  .wishlist {
+    margin: 0px;
+    min-height: 20vh;
+  }
+  .message {
+    font-size: 15px;
+    background-color: grey;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px 25px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1181px) {
+  .wishlist {
+    margin: 50px 150px;
+    min-height: 30vh;
+  }
+  .message {
+    font-size: 30px;
+    background-color: grey;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px 25px;
+  }
 }

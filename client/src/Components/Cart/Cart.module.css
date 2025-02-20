@@ -153,12 +153,11 @@
 .productImage {
   width: 50px;
   height: auto;
-  margin-right: 10px; 
+  margin-right: 10px;
   border-radius: 4px;
 }
 
-
-.removeButton{
+.removeButton {
   background-color: red;
   border: none;
   border: 1px solid #fff;
@@ -168,9 +167,79 @@
   padding: 10px 5px;
 }
 
-.removeButton:hover{
+.removeButton:hover {
   background-color: white;
   border: 1px solid black;
   color: black;
   transition: 1s;
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+  }
+
+  .heading {
+    font-size: 20px;
+  }
+
+  .table {
+    font-size: 10px;
+  }
+
+  .th,
+  .td {
+    padding: 5px;
+  }
+
+  .productImage {
+    width: 50px;
+    height: 50px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .buttonPrimary,
+  .buttonSecondary {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .couponSection {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    width: 200px;
+  }
+
+  .couponInput{
+    border: 1px solid grey;
+    width: 178px !important;
+    margin-bottom: 10px;
+  }
+
+  .summary {
+    width: 100%;
+  }
+
+  .couponInput {
+    width: 100%;
+  }
+
+  .summary {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .summaryTotal {
+    font-size: 16px;
+  }
 }

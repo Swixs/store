@@ -7,6 +7,8 @@ import {
   Button,
 } from "@mui/material";
 
+import styles from "./Profile.module.css";
+
 const EditModal = ({
   open,
   field,
@@ -54,6 +56,7 @@ const EditModal = ({
         {field === "password" ? (
           <>
             <input
+              className={styles.inputModal}
               type="password"
               placeholder="Old Password"
               value={oldPassword}
@@ -61,6 +64,7 @@ const EditModal = ({
               style={{ width: "90%", padding: "8px", margin: "5px 0" }}
             />
             <input
+              className={styles.inputModal}
               type="password"
               placeholder="New Password"
               value={newPassword}
@@ -68,6 +72,7 @@ const EditModal = ({
               style={{ width: "90%", padding: "8px", margin: "5px 0" }}
             />
             <input
+              className={styles.inputModal}
               type="password"
               placeholder="Confirm new password"
               value={confirmPassword}
@@ -78,6 +83,7 @@ const EditModal = ({
           </>
         ) : (
           <input
+            className={styles.inputModal}
             type="text"
             value={value}
             onChange={(e) => onChange(e.target.value)}
