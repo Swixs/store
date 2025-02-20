@@ -154,3 +154,28 @@
   color: #555;
   padding: 20px;
 }
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .sidebar {
+    width: 95%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+  productsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .productsGrid {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    width: 89%;
+  }
+}

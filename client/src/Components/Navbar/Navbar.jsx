@@ -49,15 +49,16 @@ export default function Navbar() {
         position="static"
         sx={{
           backgroundColor: "white",
-          width: "100%",
-          px: { xs: 2.5, sm: 5, md: 10, lg: 20 },
+          width: "99%",
+          px: { xs: 0, sm: 0, md: 0, lg: 0 },
         }}
       >
         <Toolbar
           sx={{
-            width: "100%",
+            width: "95%",
             flexWrap: "wrap",
             justifyContent: "space-between",
+            px: 0,
           }}
         >
           <IconButton
@@ -150,9 +151,7 @@ export default function Navbar() {
                   onClick={handleLogout}
                   style={{
                     color: "black",
-                    marginLeft: "10px",
                     fontSize: "14px",
-                    padding: "5px 10px",
                     display: { xs: "none", md: "block" },
                   }}
                 >
