@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import LoginImg from "../../Image/imageLogin/Login.png";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "@mui/material";
 
 const Login = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
+  // Проверяем, является ли экран мобильным (ширина меньше 1024px)
+  const isMobile = useMediaQuery("(max-width:1024px)");
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -30,25 +34,31 @@ const Login = () => {
     <div
       style={{
         display: "flex",
-        justifyContent: "space-around",
+        justifyContent: "center",
         alignItems: "center",
         height: "100vh",
         boxSizing: "border-box",
-        margin: "auto 200px",
+        margin: "auto",
+        padding: "20px",
+        flexDirection: isMobile ? "column" : "row", // Если мобильный — в колонку
+        gap: "20px",
       }}
     >
-      <div>
-        <img
-          src={LoginImg}
-          alt="Login Illustration"
-          style={{
-            width: "805px",
-            height: "781px",
-            objectFit: "cover",
-            borderRadius: "10px",
-          }}
-        />
-      </div>
+      {!isMobile && (
+        <div>
+          <img
+            src={LoginImg}
+            alt="Login Illustration"
+            style={{
+              width: "100%",
+              maxWidth: "805px",
+              height: "auto",
+              objectFit: "cover",
+              borderRadius: "10px",
+            }}
+          />
+        </div>
+      )}
       <div
         style={{
           flex: "1",
@@ -58,6 +68,7 @@ const Login = () => {
           justifyContent: "center",
           alignItems: "flex-start",
           gap: "20px",
+          width: "100%",
         }}
       >
         <h2>Log in to Exclusive</h2>
@@ -74,7 +85,7 @@ const Login = () => {
             id="login"
             label="Login"
             variant="filled"
-            style={{ fontSize: "16px" }}
+            fullWidth
             value={login}
             onChange={(e) => setLogin(e.target.value)}
           />
@@ -83,7 +94,7 @@ const Login = () => {
             label="Password"
             type="password"
             variant="filled"
-            style={{ fontSize: "16px" }}
+            fullWidth
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -97,6 +108,7 @@ const Login = () => {
               border: "none",
               borderRadius: "5px",
               cursor: "pointer",
+              width: "100%",
             }}
           >
             Log In

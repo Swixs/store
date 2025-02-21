@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import { addToCart } from "../../Utils/cartUtils";
@@ -78,7 +77,6 @@ const Product = () => {
         <p className={styles.description}>{product.description}</p>
         <div className={styles.options}>
           <div className={styles.sizes}>
-            <h3>Size:</h3>
             <div className={styles.sizeSelector}>
               <span>Size:</span>
               {sizes.map((size) => (
@@ -103,11 +101,9 @@ const Product = () => {
           <button className={styles.counterButton} onClick={increase}>
             +
           </button>
-          <button className={styles.buyNow}>Buy Now</button>
-          <FavoriteBorderIcon
-            style={{ cursor: "pointer" }}
-            onClick={() => addToCart(product)}
-          />
+          <button className={styles.buyNow} onClick={() => addToCart(product)}>
+            Buy Now
+          </button>
         </div>
         <div className={styles.deliveryInfo}>
           <div className={styles.deliveryItem}>

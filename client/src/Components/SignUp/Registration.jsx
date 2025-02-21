@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
+import { useMediaQuery } from "@mui/material";
 
 import LoginImg from "../../Image/imageLogin/Login.png";
 import Google from "../../Image/imageLogin/IconGoogle.png";
@@ -9,6 +10,9 @@ const Registration = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+
+  // Определяем, является ли устройство мобильным (ширина экрана меньше 1024px)
+  const isMobile = useMediaQuery("(max-width:1024px)");
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -33,25 +37,31 @@ const Registration = () => {
     <div
       style={{
         display: "flex",
-        justifyContent: "space-around",
+        justifyContent: "center",
         alignItems: "center",
         height: "100vh",
         boxSizing: "border-box",
-        margin: "auto 200px",
+        margin: "auto",
+        padding: "20px",
+        flexDirection: isMobile ? "column" : "row",
+        gap: "20px",
       }}
     >
-      <div>
-        <img
-          src={LoginImg}
-          alt="Login Illustration"
-          style={{
-            width: "805px",
-            height: "781px",
-            objectFit: "cover",
-            borderRadius: "10px",
-          }}
-        />
-      </div>
+      {!isMobile && (
+        <div>
+          <img
+            src={LoginImg}
+            alt="Login Illustration"
+            style={{
+              width: "100%",
+              maxWidth: "805px",
+              height: "auto",
+              objectFit: "cover",
+              borderRadius: "10px",
+            }}
+          />
+        </div>
+      )}
       <div
         style={{
           flex: "1",
@@ -61,6 +71,7 @@ const Registration = () => {
           justifyContent: "center",
           alignItems: "flex-start",
           gap: "20px",
+          width: "100%",
         }}
       >
         <h2>Create an account</h2>
@@ -77,7 +88,7 @@ const Registration = () => {
             id="username"
             label="Username"
             variant="filled"
-            style={{ fontSize: "16px" }}
+            fullWidth
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -85,7 +96,7 @@ const Registration = () => {
             id="login"
             label="Login"
             variant="filled"
-            style={{ fontSize: "16px" }}
+            fullWidth
             value={login}
             onChange={(e) => setLogin(e.target.value)}
           />
@@ -94,7 +105,7 @@ const Registration = () => {
             label="Password"
             type="password"
             variant="filled"
-            style={{ fontSize: "16px" }}
+            fullWidth
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -108,6 +119,7 @@ const Registration = () => {
               border: "none",
               borderRadius: "5px",
               cursor: "pointer",
+              width: "100%",
             }}
           >
             Create Account
@@ -125,6 +137,7 @@ const Registration = () => {
               border: "none",
               borderRadius: "5px",
               cursor: "pointer",
+              width: "100%",
             }}
           >
             <img
@@ -140,7 +153,7 @@ const Registration = () => {
         </form>
         {message && <p>{message}</p>}
         <p style={{ fontSize: "14px" }}>
-          Already have account? <a href="/login">Login</a>
+          Already have an account? <a href="/login">Login</a>
         </p>
       </div>
     </div>
