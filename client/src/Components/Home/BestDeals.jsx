@@ -3,9 +3,9 @@ import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import CircularProgress from "@mui/material/CircularProgress";
 import { addToCart } from "../../Utils/cartUtils";
 import styles from "./Styles/BestDeals.module.css";
+import LoadingScreen from "../LoadingScreen/LoadingScreen";
 
 const BestDeals = () => {
   const [products, setProducts] = useState([]);
@@ -55,61 +55,61 @@ const BestDeals = () => {
     navigate(`/Product/${productId}`);
   };
 
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Flash Sales</h2>
       <div className={styles.productContainer}>
-        {loading ? (
-          <CircularProgress />
-        ) : (
-          currentProducts.map((product) => {
-            const discount = 25;
-            const discountPrice =
-              product.price - product.price * (discount / 100);
-            const discountedPrice = discountPrice.toFixed(2);
+        {currentProducts.map((product) => {
+          const discount = 25;
+          const discountPrice =
+            product.price - product.price * (discount / 100);
+          const discountedPrice = discountPrice.toFixed(2);
 
-            return (
-              <div key={product.id} className={styles.productCard}>
-                <div className={styles.discount}>-25%</div>
-                <div className={styles.productImage}>
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className={styles.image}
-                  />
-                </div>
-                <h3 className={styles.productTitle}>{product.title}</h3>
-                <div className={styles.priceContainer}>
-                  <p className={styles.originalPrice}>
-                    ${product.price.toFixed(2)}
-                  </p>
-                  <p className={styles.discountedPrice}>${discountedPrice}</p>
-                </div>
-                {product.rating && (
-                  <div className={styles.rating}>
-                    <span>{"⭐".repeat(product.rating.rate)}</span>
-                    <span>({product.rating.count})</span>
-                  </div>
-                )}
-
-                <div className={styles.buttonContainer}>
-                  <button
-                    className={styles.favoriteButton}
-                    onClick={() => addToCart(product)}
-                  >
-                    <FavoriteBorderIcon />
-                  </button>
-                  <button
-                    className={styles.viewButton}
-                    onClick={() => goToProduct(product.id)}
-                  >
-                    <VisibilityIcon />
-                  </button>
-                </div>
+          return (
+            <div key={product.id} className={styles.productCard}>
+              <div className={styles.discount}>-25%</div>
+              <div className={styles.productImage}>
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className={styles.image}
+                />
               </div>
-            );
-          })
-        )}
+              <h3 className={styles.productTitle}>{product.title}</h3>
+              <div className={styles.priceContainer}>
+                <p className={styles.originalPrice}>
+                  ${product.price.toFixed(2)}
+                </p>
+                <p className={styles.discountedPrice}>${discountedPrice}</p>
+              </div>
+              {product.rating && (
+                <div className={styles.rating}>
+                  <span>{"⭐".repeat(product.rating.rate)}</span>
+                  <span>({product.rating.count})</span>
+                </div>
+              )}
+
+              <div className={styles.buttonContainer}>
+                <button
+                  className={styles.favoriteButton}
+                  onClick={() => addToCart(product)}
+                >
+                  <FavoriteBorderIcon />
+                </button>
+                <button
+                  className={styles.viewButton}
+                  onClick={() => goToProduct(product.id)}
+                >
+                  <VisibilityIcon />
+                </button>
+              </div>
+            </div>
+          );
+        })}
 
         {currentPage === 1 && !loading && (
           <div className={styles.productCard}>
