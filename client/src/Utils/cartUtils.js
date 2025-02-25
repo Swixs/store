@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 export const addToCart = (product) => {
   try {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -12,10 +14,27 @@ export const addToCart = (product) => {
 
       if (existingProductIndex !== -1) {
         userCart[existingProductIndex].quantity += 1;
-        alert("Product quantity increased!");
+        Swal.fire({
+          title: "Quantity increased!",
+          text: "The product is already in the cart, quantity has been increased.",
+          icon: "info",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       } else {
         const productWithQuantity = { ...product, quantity: 1 };
         userCart.push(productWithQuantity);
+        Swal.fire({
+          title: "Added to cart!",
+          text: "Product added successfully.",
+          icon: "success",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
 
       localStorage.setItem(
@@ -31,18 +50,38 @@ export const addToCart = (product) => {
 
       if (existingGuestProductIndex !== -1) {
         guestCart[existingGuestProductIndex].quantity += 1;
-        alert("Product quantity increased!");
+        Swal.fire({
+          title: "Quantity increased!",
+          text: "The product is already in the cart, quantity has been increased.",
+          icon: "info",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       } else {
         const productWithQuantity = { ...product, quantity: 1 };
         guestCart.push(productWithQuantity);
+        Swal.fire({
+          title: "Added to cart!",
+          text: "Product added successfully.",
+          icon: "success",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
 
       localStorage.setItem("guest_cart", JSON.stringify(guestCart));
     }
   } catch (error) {
     console.error("Error adding product to cart:", error);
-    alert(
-      "An error occurred while adding the product to your cart. Please try again."
-    );
+    Swal.fire({
+      title: "Error!",
+      text: "Failed to add product. Try again.",
+      icon: "error",
+      confirmButtonText: "Ок",
+    });
   }
 };

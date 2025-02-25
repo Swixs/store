@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
 import styles from "./Checkout.module.css";
 import { FaExclamationTriangle } from "react-icons/fa";
 import { useAlerts } from "../../Context/alertContext";
@@ -62,7 +63,12 @@ const Checkout = () => {
     }
 
     addAlert("Order placed successfully!");
-    alert("Order placed successfully!");
+    Swal.fire({
+      title: "Order placed successfully!",
+      icon: "success",
+      timer: 2000,
+      showConfirmButton: false,
+    });
   };
 
   return (

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Email from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
+import Swal from "sweetalert2";
 
 import styles from "./Contact.module.css";
 import { useAlerts } from "../../Context/alertContext";
@@ -31,8 +32,12 @@ const ContactPage = () => {
     const isValid = Object.values(newErrors).every((error) => !error);
 
     if (isValid) {
-      alert(`Text sent successfully! \nMessage: ${formData.message}`);
-      addAlert(`Text sent successfully! \nMessage: ${formData.message}`);
+      Swal.fire({
+        title: `Text sent successfully! \nMessage:${formData.message}`,
+        icon: "success",
+        draggable: true,
+      });
+      addAlert(`Text sent successfully! \nMessage:${formData.message}`);
       console.log("Submitted form", formData);
     } else {
       alert("Please correct the errors in the form.");
@@ -95,6 +100,7 @@ const ContactPage = () => {
             placeholder="Message"
             className={styles.textarea}
             value={formData.message}
+            maxLength={80}
           ></textarea>
           <button
             type="submit"

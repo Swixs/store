@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Profile.module.css";
 import SettingsIcon from "@mui/icons-material/Settings";
+import Swal from "sweetalert2";
 import EditModal from "./EditModal";
 import { useAlerts } from "../../Context/alertContext";
 
@@ -40,7 +41,11 @@ const UserProfile = () => {
     localStorage.setItem("users", JSON.stringify(updatedUsers));
     localStorage.setItem("currentUser", JSON.stringify(updatedUserData));
     addAlert("User data was update!! " + new Date().toLocaleString());
-
+    Swal.fire({
+      title: `User data was update!!`,
+      icon: "success",
+      draggable: true,
+    });
     setUserData(updatedUserData);
     handleClose();
   };

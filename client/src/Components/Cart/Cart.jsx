@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 import styles from "./Cart.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAlerts } from "../../Context/alertContext";
@@ -60,12 +61,27 @@ const Cart = () => {
       const discount = calculateSubtotal() * 0.15;
       setTotal(calculateSubtotal() - discount);
       setDiscountApplied(true);
-      alert("Coupon activated! Discount 15%");
+      Swal.fire({
+        title: "Coupon code applied!",
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false,
+      });
       addAlert("Coupon activated! Discount 15%");
     } else if (discountApplied) {
       addAlert("Coupon already applied");
+      Swal.fire({
+        title: "Coupon already applied",
+        text: "Coupon already applied",
+        icon: "question",
+      });
     } else {
       addAlert("Coupon incorrect");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Coupon incorrect",
+      });
     }
   };
 
