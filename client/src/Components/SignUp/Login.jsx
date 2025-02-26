@@ -116,7 +116,7 @@ const Login = () => {
         </form>
         {message && <p>{message}</p>}
         <p style={{ fontSize: "14px" }}>
-          No account? <a href="/SignUp">Registration</a>
+          No account? <a href="/registration">Registration</a>
         </p>
       </div>
     </div>

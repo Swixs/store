@@ -11,7 +11,6 @@ const Registration = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  // Определяем, является ли устройство мобильным (ширина экрана меньше 1024px)
   const isMobile = useMediaQuery("(max-width:1024px)");
 
   const handleRegister = (e) => {
