@@ -14,7 +14,6 @@ import Checkout from "./Components/Checkout/Checkout";
 import About from "./Components/About/About";
 import Profile from "./Components/Profile/Profile";
 import { AuthProvider } from "./Context/authContext";
-import Wishlist from "./Components/Wishlist/Wishlist";
 import { AlertsProvider } from "./Context/alertContext";
 
 function App() {
@@ -36,7 +35,6 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/Checkout" element={<Checkout />} />
               <Route path="/Profile" element={<Profile />} />
-              <Route path="/Wishlist" element={<Wishlist />} />
             </Routes>
             <Footer />
           </Router>

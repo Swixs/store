@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
@@ -9,12 +8,10 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Badge from "@mui/material/Badge";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import { useAlerts } from "../../Context/alertContext";
 
 const links = [
   { name: "Home", link: "/" },
@@ -23,7 +20,6 @@ const links = [
 ];
 
 export default function Navbar() {
-  const { alerts } = useAlerts();
   const navigate = useNavigate();
   const location = useLocation();
   const [currentUser, setCurrentUser] = useState(null);
@@ -40,8 +36,6 @@ export default function Navbar() {
     navigate("/");
   };
 
-  const unreadCount = alerts.filter((alert) => !alert.read).length;
-  const numberMessages = unreadCount > 9 ? "9+" : unreadCount;
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -117,18 +111,6 @@ export default function Navbar() {
               gap: 0,
             }}
           >
-            <Link to="/wishlist">
-              <IconButton size="large">
-                <Badge badgeContent={numberMessages} color="error">
-                  <MailIcon
-                    sx={{
-                      color: "#000",
-                      fontSize: { xs: "20px", sm: "25px", md: "30px" },
-                    }}
-                  />
-                </Badge>
-              </IconButton>
-            </Link>
             <IconButton size="large" onClick={() => navigate("/cart")}>
               <ShoppingCartIcon
                 sx={{
