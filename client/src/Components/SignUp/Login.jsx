@@ -10,7 +10,6 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  // Проверяем, является ли экран мобильным (ширина меньше 1024px)
   const isMobile = useMediaQuery("(max-width:1024px)");
 
   const handleLogin = (e) => {
@@ -30,6 +29,10 @@ const Login = () => {
     }
   };
 
+  const goToRegistration = () => {
+    navigate(`/registration`);
+  };
+
   return (
     <div
       style={{
@@ -40,7 +43,7 @@ const Login = () => {
         boxSizing: "border-box",
         margin: "auto",
         padding: "20px",
-        flexDirection: isMobile ? "column" : "row", // Если мобильный — в колонку
+        flexDirection: isMobile ? "column" : "row",
         gap: "20px",
       }}
     >
@@ -115,9 +118,21 @@ const Login = () => {
           </button>
         </form>
         {message && <p>{message}</p>}
-        <p style={{ fontSize: "14px" }}>
-          No account? <a href="/registration">Registration</a>
-        </p>
+        <button
+          onClick={goToRegistration}
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "gray",
+            color: "white",
+            fontSize: "14px",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            width: "100%",
+          }}
+        >
+          No account? Register here
+        </button>
       </div>
     </div>
   );
