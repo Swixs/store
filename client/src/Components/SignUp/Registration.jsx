@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { useMediaQuery } from "@mui/material";
-
 import LoginImg from "../../Image/imageLogin/Login.png";
 import Google from "../../Image/imageLogin/IconGoogle.png";
 
@@ -20,6 +19,11 @@ const Registration = () => {
 
     if (existingUser) {
       setMessage("A user with this login already exists.");
+      return;
+    }
+
+    if (password.length < 8) {
+      setMessage("Password must be at least 8 characters long.");
       return;
     }
 
@@ -123,6 +127,17 @@ const Registration = () => {
           >
             Create Account
           </button>
+          {message && (
+            <p
+              style={{
+                color: "red",
+                fontSize: "16px",
+                fontWeight: "bold",
+              }}
+            >
+              {message}
+            </p>
+          )}
           <button
             style={{
               display: "flex",
@@ -150,7 +165,6 @@ const Registration = () => {
             Sign up with Google
           </button>
         </form>
-        {message && <p>{message}</p>}
         <p style={{ fontSize: "14px" }}>
           Already have an account? <a href="/login">Login</a>
         </p>

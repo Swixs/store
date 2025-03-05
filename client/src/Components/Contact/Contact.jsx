@@ -4,10 +4,8 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import Swal from "sweetalert2";
 
 import styles from "./Contact.module.css";
-import { useAlerts } from "../../Context/alertContext";
 
 const ContactPage = () => {
-  const { addAlert } = useAlerts();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -37,7 +35,6 @@ const ContactPage = () => {
         icon: "success",
         draggable: true,
       });
-      addAlert(`Text sent successfully! \nMessage:${formData.message}`);
       console.log("Submitted form", formData);
     } else {
       alert("Please correct the errors in the form.");
@@ -95,7 +92,7 @@ const ContactPage = () => {
             />
           </div>
           <textarea
-            name="message"
+            name="Message"
             onChange={handleChange}
             placeholder="Message"
             className={styles.textarea}

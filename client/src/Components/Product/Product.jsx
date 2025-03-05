@@ -102,7 +102,7 @@ const Product = () => {
             +
           </button>
           <button className={styles.buyNow} onClick={() => addToCart(product)}>
-            Buy Now
+            Add to cart
           </button>
         </div>
         <div className={styles.deliveryInfo}>

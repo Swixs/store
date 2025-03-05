@@ -34,8 +34,8 @@ export default function Navbar() {
     localStorage.removeItem("currentUser");
     setCurrentUser(null);
     navigate("/");
+    window.location.reload();
   };
-
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -132,9 +132,13 @@ export default function Navbar() {
                 <button
                   onClick={handleLogout}
                   style={{
-                    color: "black",
+                    color: "white",
+                    border: "none",
+                    height: 30,
+                    borderRadius: 10,
                     fontSize: "14px",
                     display: { xs: "none", md: "block" },
+                    backgroundColor: "red",
                   }}
                 >
                   Logout

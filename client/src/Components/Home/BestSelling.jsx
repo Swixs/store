@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import { addToCart } from "../../Utils/cartUtils";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
+import Swal from "sweetalert2";
+import { useAuth } from "../../Context/authContext";
 import styles from "./Styles/BestSelling.module.css";
 
 const BestSelling = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
 
   const navigate = useNavigate();
 
@@ -40,8 +42,29 @@ const BestSelling = () => {
     navigate(`/Product/${productId}`);
   };
 
+  const handleAddToCart = (product, event) => {
+    event.stopPropagation();
+
+    if (!user) {
+      Swal.fire({
+        title: "Register to add product to cart",
+        icon: "error",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    } else {
+      addToCart(product);
+    }
+  };
+
   return (
-    <Box className={styles.container} sx={{ width: "90%", mx: "auto" }}>
+    <Box
+      className={styles.container}
+      sx={{
+        width: "90%",
+        mx: "auto",
+      }}
+    >
       <Box
         className={styles.title}
         sx={{
@@ -72,6 +95,8 @@ const BestSelling = () => {
           justifyContent: "center",
           gap: { xs: "30px", md: "20px" },
           mt: 3,
+          ml: { xs: "20px", md: "100px" },
+          mr: { xs: "20px", md: "100px" },
         }}
       >
         {products.map((product) => {
@@ -85,6 +110,7 @@ const BestSelling = () => {
               key={product.id}
               className={styles.productCard}
               sx={{ width: { xs: "100%", sm: "270px" }, height: "350px", p: 2 }}
+              onClick={() => goToProduct(product.id)}
             >
               <Box className={styles.discountLabel}>-25%</Box>
               <Box className={styles.imageWrapper}>
@@ -144,21 +170,9 @@ const BestSelling = () => {
                   right: "10px",
                   color: "black",
                 }}
-                onClick={() => addToCart(product)}
+                onClick={(e) => handleAddToCart(product, e)} 
               >
                 <FavoriteBorderIcon />
-              </Button>
-              <Button
-                className={styles.viewButton}
-                sx={{
-                  position: "absolute",
-                  top: "10px",
-                  right: "40px",
-                  color: "black",
-                }}
-                onClick={() => goToProduct(product.id)}
-              >
-                <VisibilityIcon />
               </Button>
             </Box>
           );

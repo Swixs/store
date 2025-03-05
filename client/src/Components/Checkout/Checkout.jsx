@@ -3,11 +3,11 @@ import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import styles from "./Checkout.module.css";
 import { FaExclamationTriangle } from "react-icons/fa";
-import { useAlerts } from "../../Context/alertContext";
+import { useCart } from "../../Context/cardContext";
 
 const Checkout = () => {
-  const { addAlert } = useAlerts();
   const location = useLocation();
+  const { setCartItems } = useCart();
   const { cartItems, total } = location.state || { cartItems: [], total: 0 };
 
   const [formData, setFormData] = useState({
@@ -22,10 +22,6 @@ const Checkout = () => {
   });
 
   const [errors, setErrors] = useState({});
-
-  const handleApplyCoupon = () => {
-    addAlert("Coupon code applied!");
-  };
 
   useEffect(() => {
     const savedData = localStorage.getItem("checkoutData");
@@ -62,13 +58,18 @@ const Checkout = () => {
       return;
     }
 
-    addAlert("Order placed successfully!");
     Swal.fire({
       title: "Order placed successfully!",
       icon: "success",
       timer: 2000,
       showConfirmButton: false,
     });
+    const currentUser = localStorage.getItem("currentUser");
+    const parsedUser = JSON.parse(currentUser);
+    const username = parsedUser.login;
+
+    localStorage.removeItem(`cart_${username}`);
+    setCartItems([]);
   };
 
   return (
@@ -189,7 +190,6 @@ const Checkout = () => {
                 className={styles.couponInput}
               />
               <button
-                onClick={handleApplyCoupon}
                 className={styles.buttonSecondary}
               >
                 apply coupon

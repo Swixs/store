@@ -14,11 +14,9 @@ import Checkout from "./Components/Checkout/Checkout";
 import About from "./Components/About/About";
 import Profile from "./Components/Profile/Profile";
 import { AuthProvider } from "./Context/authContext";
-import { AlertsProvider } from "./Context/alertContext";
 
 function App() {
   return (
-    <AlertsProvider>
       <AuthProvider>
         <CartProvider>
           <Router>
@@ -40,7 +38,6 @@ function App() {
           </Router>
         </CartProvider>
       </AuthProvider>
-    </AlertsProvider>
   );
 }
 

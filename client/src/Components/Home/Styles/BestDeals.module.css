@@ -21,6 +21,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
+  cursor: pointer;
   width: 270px;
   height: 350px;
   text-align: left;

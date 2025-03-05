@@ -96,6 +96,7 @@
   .input {
     padding: 20px !important;
   }
+  
 }
 
 .left {
@@ -138,11 +139,18 @@
   background-color: rgb(173, 173, 173);
 }
 
+input::placeholder,
+textarea::placeholder {
+  color: black;
+  opacity: 1
+}
+
 .textarea {
   border: 1px solid #ddd;
   border-radius: 5px;
   min-height: 250px;
   background-color: rgb(173, 173, 173);
+  padding: 10px 20px;
 }
 
 .button {

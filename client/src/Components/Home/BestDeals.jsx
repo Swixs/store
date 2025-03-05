@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { addToCart } from "../../Utils/cartUtils";
 import styles from "./Styles/BestDeals.module.css";
 import LoadingScreen from "../LoadingScreen/LoadingScreen";
+import { useAuth } from "../../Context/authContext";
+import Swal from "sweetalert2";
 
 const BestDeals = () => {
   const [products, setProducts] = useState([]);
@@ -13,6 +14,7 @@ const BestDeals = () => {
   const [loading, setLoading] = useState(true);
   const itemsPerPage = 5;
   const location = useLocation();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -55,6 +57,21 @@ const BestDeals = () => {
     navigate(`/Product/${productId}`);
   };
 
+  const handleAddToCart = (e, product) => {
+    e.stopPropagation();
+
+    if (!user) {
+      Swal.fire({
+        title: "Register to add product to cart",
+        icon: "error",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    } else {
+      addToCart(product);
+    }
+  };
+
   if (loading) {
     return <LoadingScreen />;
   }
@@ -70,7 +87,11 @@ const BestDeals = () => {
           const discountedPrice = discountPrice.toFixed(2);
 
           return (
-            <div key={product.id} className={styles.productCard}>
+            <div
+              key={product.id}
+              className={styles.productCard}
+              onClick={() => goToProduct(product.id)}
+            >
               <div className={styles.discount}>-25%</div>
               <div className={styles.productImage}>
                 <img
@@ -96,15 +117,9 @@ const BestDeals = () => {
               <div className={styles.buttonContainer}>
                 <button
                   className={styles.favoriteButton}
-                  onClick={() => addToCart(product)}
+                  onClick={(e) => handleAddToCart(e, product)}
                 >
                   <FavoriteBorderIcon />
-                </button>
-                <button
-                  className={styles.viewButton}
-                  onClick={() => goToProduct(product.id)}
-                >
-                  <VisibilityIcon />
                 </button>
               </div>
             </div>
