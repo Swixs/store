@@ -1,0 +1,8 @@
+/* SweetAlert2 — поверх навбара и всего контента */
+.swal2-container {
+  z-index: 99999 !important;
+}
+
+.swal2-popup {
+  z-index: 100000 !important;
+}

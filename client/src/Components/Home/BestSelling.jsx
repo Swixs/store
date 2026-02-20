@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import StarIcon from "@mui/icons-material/Star";
 import { addToCart } from "../../Utils/cartUtils";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import { useAuth } from "../../Context/authContext";
 import styles from "./Styles/BestSelling.module.css";
@@ -12,7 +12,6 @@ const BestSelling = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const BestSelling = () => {
         setLoading(true);
         const response = await axios.get("https://fakestoreapi.com/products");
         const filteredProducts = response.data
-          .sort((a, b) => b.rating?.rate - a.rating?.rate)
+          .sort((a, b) => (b.rating?.rate ?? 0) - (a.rating?.rate ?? 0))
           .slice(0, 4);
         setProducts(filteredProducts);
       } catch (error) {
@@ -34,17 +33,12 @@ const BestSelling = () => {
     fetchProducts();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   const goToProduct = (productId) => {
     navigate(`/Product/${productId}`);
   };
 
   const handleAddToCart = (product, event) => {
     event.stopPropagation();
-
     if (!user) {
       Swal.fire({
         title: "Register to add product to cart",
@@ -57,48 +51,19 @@ const BestSelling = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <section className={styles.container}>
+        <p className={styles.loading}>Loading...</p>
+      </section>
+    );
+  }
+
   return (
-    <Box
-      className={styles.container}
-      sx={{
-        width: "90%",
-        mx: "auto",
-      }}
-    >
-      <Box
-        className={styles.title}
-        sx={{
-          display: "flex",
-          justifyContent: "normal",
-          alignItems: "center",
-          flexWrap: "wrap",
-        }}
-      >
-        <Typography
-          variant="h2"
-          className={styles.title}
-          sx={{
-            fontSize: { xs: "24px", md: "50px" },
-            textAlign: { xs: "center", md: "left" },
-            marginLeft: { xs: "70px", md: "200px" },
-            marginTop: { xs: "0px", md: "200px" },
-          }}
-        >
-          Best Selling Products
-        </Typography>
-      </Box>
-      <Box
-        className={styles.productList}
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: { xs: "30px", md: "20px" },
-          mt: 3,
-          ml: { xs: "20px", md: "100px" },
-          mr: { xs: "20px", md: "100px" },
-        }}
-      >
+    <section className={styles.container}>
+      <h2 className={styles.title}>Best Selling Products</h2>
+
+      <div className={styles.productList}>
         {products.map((product) => {
           const discount = 25;
           const discountPrice =
@@ -106,79 +71,67 @@ const BestSelling = () => {
           const discountedPrice = discountPrice.toFixed(2);
 
           return (
-            <Box
+            <div
               key={product.id}
               className={styles.productCard}
-              sx={{ width: { xs: "100%", sm: "270px" }, height: "350px", p: 2 }}
               onClick={() => goToProduct(product.id)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") goToProduct(product.id);
+              }}
             >
-              <Box className={styles.discountLabel}>-25%</Box>
-              <Box className={styles.imageWrapper}>
+              <div className={styles.discountLabel}>-25%</div>
+              <button
+                type="button"
+                className={styles.favoriteButton}
+                onClick={(e) => handleAddToCart(product, e)}
+                aria-label="Add to cart"
+              >
+                <FavoriteBorderIcon sx={{ fontSize: 22 }} />
+              </button>
+              <div className={styles.imageWrapper}>
                 <img
                   src={product.image}
                   alt={product.title}
                   className={styles.productImage}
                 />
-              </Box>
-              <Typography
-                className={styles.productTitle}
-                sx={{ fontSize: "14px", mt: 2 }}
-              >
-                {product.title}
-              </Typography>
-              <Box
-                className={styles.priceWrapper}
-                sx={{ display: "flex", gap: "5px" }}
-              >
-                <Typography
-                  className={styles.oldPrice}
-                  sx={{
-                    fontSize: "14px",
-                    color: "gray",
-                    textDecoration: "line-through",
-                  }}
-                >
-                  ${product.price.toFixed(2)}
-                </Typography>
-                <Typography
-                  className={styles.discountedPrice}
-                  sx={{ fontSize: "14px", color: "red", ml: 1 }}
-                >
-                  ${discountedPrice}
-                </Typography>
-              </Box>
-              {product.rating && (
-                <Box
-                  className={styles.rating}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    fontSize: "12px",
-                    color: "black",
-                    mt: 1,
-                  }}
-                >
-                  <span>{"⭐".repeat(Math.round(product.rating.rate))}</span>
-                  <span>({product.rating.count})</span>
-                </Box>
-              )}
-              <Button
-                className={styles.favoriteButton}
-                sx={{
-                  position: "absolute",
-                  top: "10px",
-                  right: "10px",
-                  color: "black",
-                }}
-                onClick={(e) => handleAddToCart(product, e)} 
-              >
-                <FavoriteBorderIcon />
-              </Button>
-            </Box>
+              </div>
+              <div className={styles.cardBody}>
+                <h3 className={styles.productTitle}>{product.title}</h3>
+                <div className={styles.priceWrapper}>
+                  <span className={styles.oldPrice}>
+                    ${product.price.toFixed(2)}
+                  </span>
+                  <span className={styles.discountedPrice}>
+                    ${discountedPrice}
+                  </span>
+                </div>
+                {product.rating && (
+                  <div className={styles.rating}>
+                    {[...Array(5)].map((_, i) => (
+                      <StarIcon
+                        key={i}
+                        sx={{
+                          fontSize: 18,
+                          color:
+                            i < Math.round(product.rating.rate)
+                              ? "#f59e0b"
+                              : "#e5e7eb",
+                        }}
+                      />
+                    ))}
+                    <span className={styles.ratingCount}>
+                      ({product.rating.count})
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
           );
         })}
-      </Box>
-    </Box>
+      </div>
+    </section>
   );
 };
 

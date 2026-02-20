@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import StarIcon from "@mui/icons-material/Star";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { addToCart } from "../../Utils/cartUtils";
 import styles from "./Styles/BestDeals.module.css";
 import LoadingScreen from "../LoadingScreen/LoadingScreen";
@@ -77,7 +80,7 @@ const BestDeals = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div id="flash-sales" className={styles.container}>
       <h2 className={styles.title}>Flash Sales</h2>
       <div className={styles.productContainer}>
         {currentProducts.map((product) => {
@@ -93,6 +96,16 @@ const BestDeals = () => {
               onClick={() => goToProduct(product.id)}
             >
               <div className={styles.discount}>-25%</div>
+              <div className={styles.buttonContainer}>
+                <button
+                  className={styles.favoriteButton}
+                  onClick={(e) => handleAddToCart(e, product)}
+                  type="button"
+                  aria-label="Add to cart"
+                >
+                  <FavoriteBorderIcon sx={{ fontSize: 22 }} />
+                </button>
+              </div>
               <div className={styles.productImage}>
                 <img
                   src={product.image}
@@ -100,50 +113,51 @@ const BestDeals = () => {
                   className={styles.image}
                 />
               </div>
-              <h3 className={styles.productTitle}>{product.title}</h3>
-              <div className={styles.priceContainer}>
-                <p className={styles.originalPrice}>
-                  ${product.price.toFixed(2)}
-                </p>
-                <p className={styles.discountedPrice}>${discountedPrice}</p>
-              </div>
-              {product.rating && (
-                <div className={styles.rating}>
-                  <span>{"⭐".repeat(product.rating.rate)}</span>
-                  <span>({product.rating.count})</span>
+              <div className={styles.cardBody}>
+                <h3 className={styles.productTitle}>{product.title}</h3>
+                <div className={styles.priceContainer}>
+                  <p className={styles.originalPrice}>
+                    ${product.price.toFixed(2)}
+                  </p>
+                  <p className={styles.discountedPrice}>${discountedPrice}</p>
                 </div>
-              )}
-
-              <div className={styles.buttonContainer}>
-                <button
-                  className={styles.favoriteButton}
-                  onClick={(e) => handleAddToCart(e, product)}
-                >
-                  <FavoriteBorderIcon />
-                </button>
+                {product.rating && (
+                  <div className={styles.rating}>
+                    {[...Array(5)].map((_, i) => (
+                      <StarIcon
+                        key={i}
+                        sx={{
+                          fontSize: 18,
+                          color: i < Math.round(product.rating.rate) ? "#f59e0b" : "#e5e7eb",
+                        }}
+                      />
+                    ))}
+                    <span className={styles.ratingCount}>({product.rating.count})</span>
+                  </div>
+                )}
               </div>
             </div>
           );
         })}
 
-        {currentPage === 1 && !loading && (
-          <div className={styles.productCard}>
+        {currentPage === 1 && !loading && products[startIndex + 4] && (
+          <div className={styles.viewAllCard}>
             <div className={styles.productImage}>
               <img
-                src={products[startIndex + 4]?.image}
-                alt="Blurry Product"
+                src={products[startIndex + 4].image}
+                alt=""
                 className={styles.image}
-                style={{ filter: "blur(6px)" }}
+                style={{ filter: "blur(4px)" }}
               />
-              <h3 className={styles.productTitle}>
-                {products[startIndex + 4]?.title || "Product"}
-              </h3>
-              <p className={styles.originalPrice}>
-                ${products[startIndex + 4]?.price || "Price"}
-              </p>
             </div>
+            <h3 className={styles.productTitle}>
+              {products[startIndex + 4].title}
+            </h3>
+            <p className={styles.originalPrice}>
+              ${products[startIndex + 4].price?.toFixed(2)}
+            </p>
             <Link to="/Products">
-              <button className={styles.viewAllButton}>
+              <button type="button" className={styles.viewAllButton}>
                 View all products
               </button>
             </Link>
@@ -156,16 +170,19 @@ const BestDeals = () => {
           onClick={handlePrevious}
           disabled={currentPage === 0}
           className={styles.arrowButton}
+          type="button"
+          aria-label="Previous page"
         >
-          ◀
+          <ChevronLeftIcon sx={{ fontSize: 28 }} />
         </button>
-
         <button
           onClick={handleNext}
           disabled={currentPage >= 1}
           className={styles.arrowButton}
+          type="button"
+          aria-label="Next page"
         >
-          ▶
+          <ChevronRightIcon sx={{ fontSize: 28 }} />
         </button>
       </div>
 

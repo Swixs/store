@@ -23,7 +23,7 @@ const LoadingScreen = () => {
   return (
     <div className={styles.overlay}>
       <div className={styles.text} style={{ opacity: visible ? 1 : 0.5 }}>
-        Exclusive
+        PickNNBuy
       </div>
       <div className={styles.progressBar}>
         <div

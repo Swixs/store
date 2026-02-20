@@ -1,22 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 import MenuIcon from "@mui/icons-material/Menu";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
+import CloseIcon from "@mui/icons-material/Close";
+import styles from "./Navbar.module.css";
 
 const links = [
-  { name: "Home", link: "/" },
-  { name: "Contact", link: "/contact" },
-  { name: "About", link: "/about" },
+  { name: "Catalog", link: "/Products" },
+  { name: "Contacts", link: "/Contact" },
+  { name: "Discounts", link: "/#flash-sales", isAnchor: true },
 ];
 
 export default function Navbar() {
@@ -25,7 +18,7 @@ export default function Navbar() {
   const [currentUser, setCurrentUser] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  useState(() => {
+  useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     setCurrentUser(user);
   }, [location]);
@@ -33,152 +26,126 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("currentUser");
     setCurrentUser(null);
+    setDrawerOpen(false);
     navigate("/");
     window.location.reload();
   };
 
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="static"
-        sx={{
-          backgroundColor: "white",
-          width: "99%",
-          px: { xs: 0, sm: 0, md: 0, lg: 0 },
-        }}
-      >
-        <Toolbar
-          sx={{
-            width: "95%",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            px: 0,
-          }}
-        >
-          <IconButton
-            size="large"
-            edge="start"
-            aria-label="menu"
-            sx={{ display: { xs: "block", md: "none" } }}
-            onClick={() => setDrawerOpen(true)}
-          >
-            <MenuIcon sx={{ color: "#000", fontSize: "30px" }} />
-          </IconButton>
+  const closeDrawer = () => setDrawerOpen(false);
 
-          <Typography
-            variant="h6"
-            component={Link}
-            to="/"
-            sx={{
-              textDecoration: "none",
-              color: "black",
-              fontWeight: "bold",
-              fontSize: { xs: "18px", sm: "22px", md: "24px" },
-            }}
-          >
-            Exclusive
-          </Typography>
-          <Box
-            sx={{
-              display: { xs: "none", sm: "flex" },
-              gap: 2,
-              ml: { sm: 2, md: 10 },
-            }}
-          >
-            {links.map((item) => (
+  return (
+    <nav className={styles.navbar}>
+      <div className={styles.toolbar}>
+        <button
+          type="button"
+          className={styles.menuButton}
+          aria-label="Open menu"
+          onClick={() => setDrawerOpen(true)}
+        >
+          <MenuIcon sx={{ fontSize: 28 }} />
+        </button>
+
+        <Link to="/" className={styles.logo}>
+          PickNNBuy
+        </Link>
+
+        <div className={styles.navLinks}>
+          {links.map((item) => {
+            const isActive =
+              !item.isAnchor &&
+              (location.pathname === item.link ||
+                (item.link === "/Products" && location.pathname.startsWith("/Product")));
+            const isDiscountsActive =
+              item.isAnchor && location.pathname === "/" && location.hash === "#flash-sales";
+            return (
               <Link
                 key={item.name}
                 to={item.link}
-                style={{
-                  fontSize: "18px",
-                  textDecoration: "none",
-                  color: location.pathname === item.link ? "black" : "#000",
-                  fontWeight: 200,
-                  borderBottom:
-                    location.pathname === item.link
-                      ? "1px solid black"
-                      : "none",
-                }}
+                className={`${styles.navLink} ${isActive || isDiscountsActive ? styles.navLinkActive : ""}`}
               >
                 {item.name}
               </Link>
-            ))}
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 0,
-            }}
-          >
-            <IconButton size="large" onClick={() => navigate("/cart")}>
-              <ShoppingCartIcon
-                sx={{
-                  color: "#000",
-                  fontSize: { xs: "20px", sm: "25px", md: "30px" },
-                }}
-              />
-            </IconButton>
-            {currentUser ? (
-              <>
-                <IconButton size="large" onClick={() => navigate("/profile")}>
-                  <AccountCircleIcon
-                    sx={{
-                      color: "#000",
-                      fontSize: { xs: "20px", sm: "25px", md: "30px" },
-                    }}
-                  />
-                </IconButton>
-                <button
-                  onClick={handleLogout}
-                  style={{
-                    color: "white",
-                    border: "none",
-                    height: 30,
-                    borderRadius: 10,
-                    fontSize: "14px",
-                    display: { xs: "none", md: "block" },
-                    backgroundColor: "red",
-                  }}
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <Link
-                to="/login"
-                style={{
-                  fontSize: "18px",
-                  textDecoration: "none",
-                  color: "#000",
-                  fontWeight: 200,
-                  marginLeft: 10,
-                }}
-              >
-                Log in
-              </Link>
-            )}
-          </Box>
-        </Toolbar>
-      </AppBar>
+            );
+          })}
+        </div>
 
-      <Drawer
-        anchor="left"
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
+        <div className={styles.actions}>
+          <button
+            type="button"
+            className={styles.iconBtn}
+            aria-label="Cart"
+            onClick={() => navigate("/cart")}
+          >
+            <ShoppingBagOutlinedIcon sx={{ fontSize: 28 }} />
+          </button>
+          {currentUser ? (
+            <>
+              <button
+                type="button"
+                className={styles.iconBtn}
+                aria-label="Profile"
+                onClick={() => navigate("/Profile")}
+              >
+                <PersonOutlineRoundedIcon sx={{ fontSize: 28 }} />
+              </button>
+              <button
+                type="button"
+                className={styles.logoutBtn}
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link to="/login" className={styles.loginLink}>
+              Log in
+            </Link>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile drawer */}
+      <div
+        role="presentation"
+        className={`${styles.drawerBackdrop} ${drawerOpen ? styles.drawerBackdropOpen : ""}`}
+        onClick={closeDrawer}
+        onKeyDown={(e) => e.key === "Escape" && closeDrawer()}
+        aria-hidden={!drawerOpen}
+      />
+      <div
+        className={`${styles.drawerPanel} ${drawerOpen ? styles.drawerPanelOpen : ""}`}
+        aria-hidden={!drawerOpen}
       >
-        <List>
-          {links.map((item) => (
-            <ListItem
-              button
+        <div className={styles.drawerHeader}>
+          <span className={styles.drawerTitle}>Menu</span>
+          <button
+            type="button"
+            className={styles.menuButton}
+            aria-label="Close menu"
+            onClick={closeDrawer}
+          >
+            <CloseIcon sx={{ fontSize: 28 }} />
+          </button>
+        </div>
+        {links.map((item) => {
+          const isActive =
+            !item.isAnchor &&
+            (location.pathname === item.link ||
+              (item.link === "/Products" && location.pathname.startsWith("/Product")));
+          const isDiscountsActive =
+            item.isAnchor && location.pathname === "/" && location.hash === "#flash-sales";
+          return (
+            <Link
               key={item.name}
-              onClick={() => navigate(item.link)}
+              to={item.link}
+              className={`${styles.drawerLink} ${isActive || isDiscountsActive ? styles.drawerLinkActive : ""}`}
+              onClick={closeDrawer}
             >
-              <ListItemText primary={item.name} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-    </Box>
+              {item.name}
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
   );
 }

@@ -1,0 +1,256 @@
+.page {
+  min-height: calc(100vh - 88px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  box-sizing: border-box;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  max-width: 960px;
+  width: 100%;
+}
+
+.illustration {
+  flex: 1;
+  max-width: 420px;
+}
+
+.illustration img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.formWrap {
+  flex: 1;
+  max-width: 400px;
+  width: 100%;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 0.9375rem;
+  color: #6b7280;
+  margin: 0 0 28px 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 1rem;
+  color: #1a1a1a;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.input:hover {
+  border-color: #d1d5db;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.submitBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);
+}
+
+.submitBtn:active {
+  transform: translateY(0);
+}
+
+.secondaryBtn {
+  width: 100%;
+  padding: 14px 24px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #374151;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.secondaryBtn:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.message {
+  font-size: 0.9375rem;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin: 0;
+}
+
+.messageError {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.messageSuccess {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.footerText {
+  font-size: 0.9375rem;
+  color: #6b7280;
+  margin: 24px 0 0 0;
+  text-align: center;
+}
+
+.footerLink {
+  color: #dc2626;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 8px 0;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.dividerText {
+  font-size: 0.8125rem;
+  color: #9ca3af;
+}
+
+.googleBtn {
+  width: 100%;
+  padding: 14px 24px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #374151;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.googleBtn:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.googleBtn img {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 900px) {
+  .inner {
+    flex-direction: column;
+  }
+
+  .illustration {
+    max-width: 280px;
+  }
+
+  .card {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 24px 16px;
+  }
+
+  .card {
+    padding: 28px 20px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,132 @@
+.section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 56px 24px 64px;
+  border-top: 3px solid #d1d5db;
+  border-bottom: 3px solid #d1d5db;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
+  margin: 0 0 32px 0;
+  text-align: center;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 28px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 32px 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 200px;
+  min-height: 200px;
+}
+
+.card:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+  border-color: #fecaca;
+  background: #fffbeb;
+}
+
+.iconWrap {
+  width: 96px;
+  height: 96px;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #fef2f2 0%, #fee2e2 100%);
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.12);
+}
+
+.card:hover .iconWrap {
+  background: linear-gradient(145deg, #dc2626 0%, #b91c1c 100%);
+  color: #fff;
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+}
+
+.iconWrap svg {
+  font-size: 52px !important;
+  width: 1em;
+  height: 1em;
+}
+
+.categoryName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+  line-height: 1.3;
+  transition: color 0.25s ease;
+}
+
+.card:hover .categoryName {
+  color: #1a1a1a;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: 40px 16px 48px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+
+  .grid {
+    gap: 20px;
+    max-width: 100%;
+  }
+
+  .card {
+    width: 160px;
+    min-height: 160px;
+    padding: 24px 20px;
+  }
+
+  .iconWrap {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+  }
+
+  .iconWrap svg {
+    font-size: 40px !important;
+  }
+
+  .categoryName {
+    font-size: 0.9375rem;
+  }
+}

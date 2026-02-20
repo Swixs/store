@@ -10,7 +10,7 @@ const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.footerContainer}>
         <div className={styles.footerColumn}>
-          <h3 className={styles.footerTitle}>Exclusive</h3>
+          <h3 className={styles.footerTitle}>PickNNBuy</h3>
           <p className={styles.footerText}>Subscribe</p>
           <p className={styles.footerText}>Your choice</p>
         </div>

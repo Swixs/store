@@ -1,173 +1,109 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import { useMediaQuery } from "@mui/material";
+import { Link } from "react-router-dom";
 import LoginImg from "../../Image/imageLogin/Login.png";
-import Google from "../../Image/imageLogin/IconGoogle.png";
+import { register as apiRegister } from "../../api/authApi";
+import styles from "./Auth.module.css";
 
 const Registration = () => {
   const [username, setUsername] = useState("");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({ type: "", text: "" });
+  const [loading, setLoading] = useState(false);
 
-  const isMobile = useMediaQuery("(max-width:1024px)");
-
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const existingUser = users.find((user) => user.login === login);
-
-    if (existingUser) {
-      setMessage("A user with this login already exists.");
-      return;
+    setMessage({ type: "", text: "" });
+    setLoading(true);
+    try {
+      await apiRegister(username, login, password);
+      setMessage({ type: "success", text: "Registration successful! You can log in now." });
+      setUsername("");
+      setLogin("");
+      setPassword("");
+    } catch (err) {
+      setMessage({ type: "error", text: err.message || "Registration failed." });
+    } finally {
+      setLoading(false);
     }
-
-    if (password.length < 8) {
-      setMessage("Password must be at least 8 characters long.");
-      return;
-    }
-
-    const newUser = { username, login, password };
-    users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
-    setMessage("Registration was successful!");
-    setUsername("");
-    setLogin("");
-    setPassword("");
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        boxSizing: "border-box",
-        margin: "auto",
-        padding: "20px",
-        flexDirection: isMobile ? "column" : "row",
-        gap: "20px",
-      }}
-    >
-      {!isMobile && (
-        <div>
-          <img
-            src={LoginImg}
-            alt="Login Illustration"
-            style={{
-              width: "100%",
-              maxWidth: "805px",
-              height: "auto",
-              objectFit: "cover",
-              borderRadius: "10px",
-            }}
-          />
+    <div className={styles.page}>
+      <div className={styles.inner}>
+        <div className={styles.illustration}>
+          <img src={LoginImg} alt="Sign up" />
         </div>
-      )}
-      <div
-        style={{
-          flex: "1",
-          maxWidth: "400px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          gap: "20px",
-          width: "100%",
-        }}
-      >
-        <h2>Create an account</h2>
-        <form
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "15px",
-            width: "100%",
-          }}
-          onSubmit={handleRegister}
-        >
-          <TextField
-            id="username"
-            label="Username"
-            variant="filled"
-            fullWidth
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <TextField
-            id="login"
-            label="Login"
-            variant="filled"
-            fullWidth
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
-          />
-          <TextField
-            id="password"
-            label="Password"
-            type="password"
-            variant="filled"
-            fullWidth
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button
-            type="submit"
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "red",
-              color: "white",
-              fontSize: "16px",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              width: "100%",
-            }}
-          >
-            Create Account
-          </button>
-          {message && (
-            <p
-              style={{
-                color: "red",
-                fontSize: "16px",
-                fontWeight: "bold",
-              }}
-            >
-              {message}
+        <div className={styles.formWrap}>
+          <div className={styles.card}>
+            <h1 className={styles.title}>Create an account</h1>
+            <p className={styles.subtitle}>
+              Join PickNNBuy to start shopping.
             </p>
-          )}
-          <button
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "10px",
-              padding: "10px 20px",
-              backgroundColor: "white",
-              color: "black",
-              fontSize: "16px",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              width: "100%",
-            }}
-          >
-            <img
-              src={Google}
-              alt="google"
-              style={{
-                width: "20px",
-                height: "20px",
-              }}
-            />
-            Sign up with Google
-          </button>
-        </form>
-        <p style={{ fontSize: "14px" }}>
-          Already have an account? <a href="/login">Login</a>
-        </p>
+            <form className={styles.form} onSubmit={handleRegister}>
+              <div className={styles.field}>
+                <label className={styles.label} htmlFor="username">
+                  Username
+                </label>
+                <input
+                  id="username"
+                  type="text"
+                  className={styles.input}
+                  placeholder="Your name"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  autoComplete="name"
+                />
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label} htmlFor="login">
+                  Login
+                </label>
+                <input
+                  id="login"
+                  type="text"
+                  className={styles.input}
+                  placeholder="Email or username"
+                  value={login}
+                  onChange={(e) => setLogin(e.target.value)}
+                  autoComplete="username"
+                />
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label} htmlFor="password">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  className={styles.input}
+                  placeholder="At least 8 characters"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="new-password"
+                />
+              </div>
+              {message.text && (
+                <p
+                  className={`${styles.message} ${
+                    message.type === "error" ? styles.messageError : styles.messageSuccess
+                  }`}
+                >
+                  {message.text}
+                </p>
+              )}
+              <button type="submit" className={styles.submitBtn} disabled={loading}>
+                {loading ? "Creating account…" : "Create account"}
+              </button>
+            </form>
+          </div>
+          <p className={styles.footerText}>
+            Already have an account?{" "}
+            <Link to="/login" className={styles.footerLink}>
+              Log in
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

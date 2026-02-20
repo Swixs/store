@@ -1,10 +1,15 @@
+.productWrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  padding-top: 32px;
+}
+
 .productPage {
   display: flex;
   gap: 30px;
-  padding: 20px;
+  padding: 20px 0;
   font-family: Arial, sans-serif;
-  margin: auto 300px;
-  margin-top: 100px;
 }
 
 .productImages {
@@ -167,9 +172,111 @@
   transition: 1s;
 }
 
+/* Reviews */
+.reviewsSection {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.reviewsTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 24px 0;
+}
+
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reviewCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.reviewAuthor {
+  font-weight: 600;
+  color: #1a1a1a;
+  font-size: 0.9375rem;
+}
+
+.reviewDate {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.reviewStars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 10px;
+}
+
+.reviewText {
+  font-size: 0.9375rem;
+  color: #374151;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.reviewsPagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.reviewPageBtn {
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.reviewPageBtn:hover:not(:disabled) {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.reviewPageBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.reviewPageBtnActive {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #fff;
+}
+
+.reviewPageBtnActive:hover {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  color: #fff;
+}
+
 @media (max-width: 1200px) {
   .productPage {
-    margin: auto 100px;
     flex-direction: column;
     align-items: center;
   }

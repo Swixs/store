@@ -1,114 +1,124 @@
 import React, { useState } from "react";
-import Email from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
 import Swal from "sweetalert2";
-
 import styles from "./Contact.module.css";
 
 const ContactPage = () => {
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
   });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: null }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const newErrors = {
-      name: formData.name.trim() === "",
-      message: formData.message.trim() === "",
+      name: formData.name.trim() === "" ? "Name is required" : null,
+      message: formData.message.trim() === "" ? "Message is required" : null,
     };
+    setErrors(newErrors);
 
-    const isValid = Object.values(newErrors).every((error) => !error);
+    const isValid = Object.values(newErrors).every((e) => !e);
+    if (!isValid) return;
 
-    if (isValid) {
-      Swal.fire({
-        title: `Text sent successfully! \nMessage:${formData.message}`,
-        icon: "success",
-        draggable: true,
-      });
-      console.log("Submitted form", formData);
-    } else {
-      alert("Please correct the errors in the form.");
-    }
+    Swal.fire({
+      title: "Message sent!",
+      text: "We will get back to you within 24 hours.",
+      icon: "success",
+      confirmButtonText: "OK",
+    });
+    setFormData({ name: "", email: "", phone: "", message: "" });
+    setErrors({});
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.left}>
-        <div className={styles.contactBlock}>
-          <span className={styles.emailIcon}>
-            <PhoneIcon className={styles.icon} />
-          </span>
-          <h2>Call to us</h2>
-          <p>We are available 24/7, 7 days a week.</p>
-          <p>Phone: +8801611112222</p>
-        </div>
-        <div className={styles.contactBlock}>
-          <span className={styles.emailIcon}>
-            <Email className={styles.icon} />
-          </span>
-          <h2>Write to us</h2>
-          <p>Fill out our form and we will contact you within 24 hours.</p>
-          <p>Emails: customer@exclusive.com</p>
-          <p>Emails: support@exclusive.com</p>
-        </div>
-      </div>
-      <div className={styles.right}>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.formRow}>
-            <input
-              type="text"
-              name="name"
-              placeholder={"Your Name"}
-              className={styles.input}
-              value={formData.name}
-              onChange={handleChange}
-            />
+    <section className={styles.section}>
+      <h1 className={styles.title}>Get in touch</h1>
+      <p className={styles.subtitle}>
+        Have a question or feedback? Send us a message and we’ll respond as soon as we can.
+      </p>
 
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              className={styles.input}
-              value={formData.email}
-              onChange={handleChange}
-            />
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Phone"
-              className={styles.input}
-              value={formData.phone}
-              onChange={handleChange}
-            />
+      <div className={styles.grid}>
+        <div className={styles.infoColumn}>
+          <div className={styles.contactCard}>
+            <div className={styles.iconWrap}>
+              <PhoneIcon />
+            </div>
+            <h3>Call us</h3>
+            <p>We’re available 24/7, 7 days a week.</p>
+            <p>Phone: +1 (555) 123-4567</p>
           </div>
-          <textarea
-            name="Message"
-            onChange={handleChange}
-            placeholder="Message"
-            className={styles.textarea}
-            value={formData.message}
-            maxLength={80}
-          ></textarea>
-          <button
-            type="submit"
-            aria-label="Send your message"
-            className={styles.button}
-          >
-            Send message
-          </button>
-        </form>
+          <div className={styles.contactCard}>
+            <div className={styles.iconWrap}>
+              <EmailIcon />
+            </div>
+            <h3>Write to us</h3>
+            <p>Fill out the form and we’ll contact you within 24 hours.</p>
+            <p>customer@picknnbuy.com</p>
+            <p>support@picknnbuy.com</p>
+          </div>
+        </div>
+
+        <div className={styles.formCard}>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <div className={styles.formRow}>
+              <div>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your name"
+                  className={styles.input}
+                  value={formData.name}
+                  onChange={handleChange}
+                  aria-invalid={!!errors.name}
+                />
+                {errors.name && <p className={styles.error}>{errors.name}</p>}
+              </div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                className={styles.input}
+                value={formData.email}
+                onChange={handleChange}
+              />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone"
+                className={styles.input}
+                value={formData.phone}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <textarea
+                name="message"
+                placeholder="Your message"
+                className={styles.textarea}
+                value={formData.message}
+                onChange={handleChange}
+                maxLength={500}
+                aria-invalid={!!errors.message}
+              />
+              {errors.message && <p className={styles.error}>{errors.message}</p>}
+            </div>
+            <button type="submit" className={styles.button}>
+              Send message
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
